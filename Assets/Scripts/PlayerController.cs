@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     Transform mainCam;
     float turnSmoothVelocity;
     float verticalVelocity;
+    Vector3 moveDirection;
 
     float groundedTimer;
     [SerializeField] float jumpBuffer = .2f;
@@ -37,12 +38,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        bool playerIsGrounded = charController.isGrounded;
+
         float forwardInput = Input.GetAxisRaw(HORIZONTAL_AXIS);
         float lateralInput = Input.GetAxisRaw(VERTICAL_AXIS);
-        Vector3 movement = new Vector3(forwardInput, 0, lateralInput);//.normalized;
-        Vector3 moveDirection;
+        Vector3 movement = new Vector3(forwardInput, 0, lateralInput).normalized;
+        //Vector3 moveDirection;
 
-        if (movement.magnitude > 0)
+        if (movement.magnitude > 0 && playerIsGrounded)
         {
             float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + mainCam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -51,13 +54,10 @@ public class PlayerController : MonoBehaviour
 
             moveDirection = rotation * Vector3.forward;
         }
-        else
+        else if(playerIsGrounded)
         {
             moveDirection = Vector3.zero;
         }
-
-        bool playerIsGrounded = charController.isGrounded;
-        Debug.Log(playerIsGrounded);
 
         if (playerIsGrounded)
             groundedTimer = jumpBuffer;
@@ -78,7 +78,6 @@ public class PlayerController : MonoBehaviour
             groundedTimer = 0;
 
             verticalVelocity += Mathf.Sqrt(jumpHeight * -2 * gravity);
-            Debug.Log($"jump; verical vel = {verticalVelocity}");
         }
 
         //if(!charController.isGrounded)
