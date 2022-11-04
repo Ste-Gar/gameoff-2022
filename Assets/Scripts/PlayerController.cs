@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     const string HORIZONTAL_AXIS = "Horizontal";
     const string VERTICAL_AXIS = "Vertical";
+    const string JUMP = "Jump";
 
     Rigidbody rb;
     float forwardInput;
@@ -14,12 +15,19 @@ public class PlayerController : MonoBehaviour
     CharacterController charController;
     Transform mainCam;
     float turnSmoothVelocity;
+    float verticalVelocity;
+
+    float groundedTimer;
+    [SerializeField] float jumpBuffer = .2f;
+
     [SerializeField] float turnSmoothTime = .1f;
+
     [SerializeField] float gravity = -9.81f;
-    [SerializeField] float gravityScale = 10;
+    //[SerializeField] float gravityScale = 10;
 
     [SerializeField] float moveSpeed = 5;
-    [SerializeField] ForceMode forceMode = ForceMode.Acceleration;
+    [SerializeField] float jumpHeight = 10;
+    //[SerializeField] ForceMode forceMode = ForceMode.Acceleration;
 
     private void Awake()
     {
@@ -48,13 +56,36 @@ public class PlayerController : MonoBehaviour
             moveDirection = Vector3.zero;
         }
 
-        moveDirection.y += gravity;
-        charController.Move(moveDirection * moveSpeed * Time.deltaTime);
-    }
+        bool playerIsGrounded = charController.isGrounded;
+        Debug.Log(playerIsGrounded);
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Debug.Log(hit.gameObject.name);
+        if (playerIsGrounded)
+            groundedTimer = jumpBuffer;
+
+        if (groundedTimer > 0)
+            groundedTimer -= Time.deltaTime;
+
+        if (playerIsGrounded && verticalVelocity < 0)
+        {
+            verticalVelocity = 0;
+        }
+
+        verticalVelocity += gravity * Time.deltaTime;
+
+        //if (Input.GetButtonDown(JUMP) && playerIsGrounded)
+        if (Input.GetButtonDown(JUMP) && groundedTimer > 0)
+        {
+            groundedTimer = 0;
+
+            verticalVelocity += Mathf.Sqrt(jumpHeight * -2 * gravity);
+            Debug.Log($"jump; verical vel = {verticalVelocity}");
+        }
+
+        //if(!charController.isGrounded)
+            //moveDirection.y += gravity;
+
+        moveDirection.y = verticalVelocity;
+        charController.Move(Time.deltaTime * moveSpeed * moveDirection);
     }
 
     //private void Awake()
