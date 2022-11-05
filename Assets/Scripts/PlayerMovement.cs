@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float moveSpeed = 5;
     [SerializeField] float jumpHeight = 10;
+    [SerializeField] bool allowMidairControls;
 
     [SerializeField] Animator animator;
 
@@ -47,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         float forwardInput = Input.GetAxisRaw(VERTICAL_AXIS);
         Vector3 movement = new Vector3(lateralInput, 0, forwardInput).normalized;
 
-        if (movement.magnitude > 0 && playerIsGrounded)
+        if (movement.magnitude > 0 && (allowMidairControls || playerIsGrounded))
         {
             float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + mainCam.eulerAngles.y;
             //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); //for smooth turning; disabled as it makes movement feel sluggish
@@ -59,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
             animator.SetBool("isRunning", true);
         }
-        else if(playerIsGrounded)
+        else if (playerIsGrounded || allowMidairControls)
         {
             moveDirection = Vector3.zero;
 

@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpBuffer: 0.2
-  turnSmoothTime: 0.05
   gravity: -6
   moveSpeed: 15
   jumpHeight: 0.3
+  allowMidairControls: 1
   animator: {fileID: 4561706242021379299}
 --- !u!143 &4474927065715391021
 CharacterController:
