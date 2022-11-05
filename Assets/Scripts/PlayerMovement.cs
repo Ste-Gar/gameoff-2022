@@ -49,8 +49,9 @@ public class PlayerMovement : MonoBehaviour
         if (movement.magnitude > 0 && playerIsGrounded)
         {
             float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + mainCam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            Quaternion rotation = Quaternion.Euler(0, angle, 0);
+            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            //Quaternion rotation = Quaternion.Euler(0, angle, 0);
+            Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);
             transform.rotation = rotation;
 
             moveDirection = rotation * Vector3.forward;
