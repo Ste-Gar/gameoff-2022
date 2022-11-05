@@ -32,9 +32,15 @@ public class PlayerMovement : MonoBehaviour
         mainCam = Camera.main.transform;
     }
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void Update()
     {
         bool playerIsGrounded = charController.isGrounded;
+        animator.SetBool("isGrounded", playerIsGrounded);
 
         float lateralInput = Input.GetAxisRaw(HORIZONTAL_AXIS);
         float forwardInput = Input.GetAxisRaw(VERTICAL_AXIS);
@@ -59,7 +65,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (playerIsGrounded)
+        {
             groundedTimer = jumpBuffer;
+        }
 
         if (groundedTimer > 0)
             groundedTimer -= Time.deltaTime;

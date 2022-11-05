@@ -53,6 +53,7 @@ MonoBehaviour:
   gravity: -6
   moveSpeed: 15
   jumpHeight: 0.3
+  animator: {fileID: 4561706242021379299}
 --- !u!143 &4474927065715391021
 CharacterController:
   m_ObjectHideFlags: 0
@@ -156,11 +157,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95787105524477528, guid: 2f3e27eecb190e44a9af50723c394274,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cf2189222c1dce040b59069069749569, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
 --- !u!4 &4470495926333353467 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4580766925885248, guid: 2f3e27eecb190e44a9af50723c394274,
+    type: 3}
+  m_PrefabInstance: {fileID: 4474927065979986619}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4561706242021379299 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95787105524477528, guid: 2f3e27eecb190e44a9af50723c394274,
     type: 3}
   m_PrefabInstance: {fileID: 4474927065979986619}
   m_PrefabAsset: {fileID: 0}
