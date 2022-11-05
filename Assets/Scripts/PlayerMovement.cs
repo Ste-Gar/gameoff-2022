@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     const string HORIZONTAL_AXIS = "Horizontal";
     const string VERTICAL_AXIS = "Vertical";
-    const string JUMP = "Jump";
+    const string JUMP_BUTTON = "Jump";
 
     CharacterController charController;
     Transform mainCam;
@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float moveSpeed = 5;
     [SerializeField] float jumpHeight = 10;
+
+    [SerializeField] Animator animator;
 
     private void Awake()
     {
@@ -46,10 +48,14 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = rotation;
 
             moveDirection = rotation * Vector3.forward;
+
+            animator.SetBool("isRunning", true);
         }
         else if(playerIsGrounded)
         {
             moveDirection = Vector3.zero;
+
+            animator.SetBool("isRunning", false);
         }
 
         if (playerIsGrounded)
@@ -65,11 +71,13 @@ public class PlayerMovement : MonoBehaviour
 
         verticalVelocity += gravity * Time.deltaTime;
 
-        if (Input.GetButtonDown(JUMP) && groundedTimer > 0)
+        if (Input.GetButtonDown(JUMP_BUTTON) && groundedTimer > 0)
         {
             groundedTimer = 0;
 
             verticalVelocity += Mathf.Sqrt(jumpHeight * -2 * gravity);
+
+            animator.SetTrigger("jump");
         }
 
         moveDirection.y = verticalVelocity;
