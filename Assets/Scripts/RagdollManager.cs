@@ -56,13 +56,12 @@ public class RagdollManager : MonoBehaviour
     {
         if (other.CompareTag("Vehicle"))
         {
-            Debug.Log("hit");
-            Vector3 hitDirection = (other.transform.position - transform.position).normalized;
+            //Vector3 hitDirection = (other.transform.position - transform.position).normalized;
             Vector3 vehicleVelocity = other.attachedRigidbody.velocity;
             Vector3 playerVelocity = characterController.velocity;
             Vector3 relativeVelocity = vehicleVelocity + playerVelocity + Vector3.up * 10;
 
-            Vector3 hitForce = Vector3.Scale(relativeVelocity, hitDirection) * collisionForceMulti;
+            Vector3 hitForce = relativeVelocity * collisionForceMulti;
 
             EnableRagdoll(hitForce);
         }    
