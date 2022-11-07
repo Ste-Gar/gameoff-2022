@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e2957f1612ae06419a52180a0514cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 4561706242021379299}
 --- !u!1001 &4474927065979986619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -347,6 +348,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: cf2189222c1dce040b59069069749569, type: 2}
+    - target: {fileID: 137720934533220950, guid: 2f3e27eecb190e44a9af50723c394274,
+        type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
 --- !u!4 &4470495926333353467 stripped
