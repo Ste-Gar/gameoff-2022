@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4474927065715391018}
   - component: {fileID: 4474927065715391021}
   - component: {fileID: 7880449222225031004}
+  - component: {fileID: 4835962995912790025}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -65,7 +66,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.75
-  m_Radius: 0.29
+  m_Radius: 0.35
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -84,6 +85,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4561706242021379299}
+  collisionForceMulti: 150
+--- !u!136 &4835962995912790025
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4474927065715391014}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.75
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.18, z: 0}
 --- !u!1001 &4474927065979986619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -379,10 +395,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &5983153616367713154
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -460,10 +476,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &7217464601175635901
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -474,7 +490,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 11.979279
+  m_Radius: 9.04
   m_Height: 39.930927
   m_Direction: 0
   m_Center: {x: 19.965464, y: 0, z: 0}
@@ -542,10 +558,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &894180399270857589
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -577,10 +593,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &188536731929772461
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -658,10 +674,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &5801148796992210082
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -672,10 +688,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 9.811709
-  m_Height: 49.058548
+  m_Radius: 5.77
+  m_Height: 49.058178
   m_Direction: 0
-  m_Center: {x: -24.529274, y: 0, z: 0}
+  m_Center: {x: -24.52909, y: 0, z: 0}
 --- !u!144 &8348247982276343618
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -740,10 +756,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &4998276208548321967
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -754,10 +770,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 8.48685
-  m_Height: 33.9474
+  m_Radius: 5.48
+  m_Height: 33.947464
   m_Direction: 0
-  m_Center: {x: -16.9737, y: 0, z: 0}
+  m_Center: {x: -16.97373, y: -1.46, z: 0}
 --- !u!144 &7289004691156814668
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -822,10 +838,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &1850672502512580730
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -836,10 +852,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 10.78868
-  m_Height: 43.15472
+  m_Radius: 6.41
+  m_Height: 43.154778
   m_Direction: 0
-  m_Center: {x: 21.57736, y: 0, z: 0}
+  m_Center: {x: 21.57739, y: -1.9, z: 0}
 --- !u!144 &1996013696380887877
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -904,10 +920,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &1814474591829382916
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -918,10 +934,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 8.486866
+  m_Radius: 5.48
   m_Height: 33.947464
   m_Direction: 0
-  m_Center: {x: 16.973732, y: 0, z: 0}
+  m_Center: {x: 16.973732, y: 1.46, z: 0}
 --- !u!144 &6017227599391379357
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -986,10 +1002,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &4357644926255113606
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1000,10 +1016,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 10.788694
+  m_Radius: 6.41
   m_Height: 43.154778
   m_Direction: 0
-  m_Center: {x: -21.577389, y: 0, z: 0}
+  m_Center: {x: -21.577389, y: 1.9, z: 0}
 --- !u!144 &3026201300352413344
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -1068,10 +1084,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &6243620758993776575
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1082,7 +1098,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 9.811636
+  m_Radius: 5.77
   m_Height: 49.058178
   m_Direction: 0
   m_Center: {x: 24.529089, y: 0, z: 0}
@@ -1150,10 +1166,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &449435579952515511
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1164,7 +1180,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 11.979278
+  m_Radius: 9.04
   m_Height: 39.930923
   m_Direction: 0
   m_Center: {x: -19.965462, y: 0, z: 0}
