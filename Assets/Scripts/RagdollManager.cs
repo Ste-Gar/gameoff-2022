@@ -1,22 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RagdollManager : MonoBehaviour
 {
+    private class BoneTransform
+    {
+        public Vector3 position { get; set; }
+        public Quaternion rotation { get; set; }
+    }
+
     enum RagdollState
     {
         disabled,
-        enabled
+        enabled,
+        standingUp,
+        resettingBones
     }
 
     RagdollState state = RagdollState.disabled;
     private Rigidbody[] ragdollRigidbodies;
+    private Transform hipsBone;
+
+    private BoneTransform[] standUpBoneTransforms;
+    private BoneTransform[] ragdollBoneTransforms;
+    private Transform[] bones;
+    private float bonesResetElapsedTime;
 
     CapsuleCollider playerCollider;
     CharacterController characterController;
     PlayerMovement playerMovement;
     [SerializeField] Animator animator;
+
+    [SerializeField] string faceUpStandAnimationStateName;
+    [SerializeField] string faceUpStandAnimationClipName;
+    [SerializeField] float timeToResetBones = 0.5f;
 
     [SerializeField] float collisionForceMulti = 100;
 
@@ -26,19 +45,76 @@ public class RagdollManager : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         playerMovement = GetComponent<PlayerMovement>();
         playerCollider = GetComponent<CapsuleCollider>();
+
+        hipsBone = animator.GetBoneTransform(HumanBodyBones.Hips);
+
+        bones = hipsBone.GetComponentsInChildren<Transform>();
+        standUpBoneTransforms = new BoneTransform[bones.Length];
+        ragdollBoneTransforms = new BoneTransform[bones.Length];
+        for (int i = 0; i < bones.Length; i++)
+        {
+            standUpBoneTransforms[i] = new BoneTransform();
+            ragdollBoneTransforms[i] = new BoneTransform();
+        }
+
+        PopulateAnimationStartBoneTransforms(faceUpStandAnimationClipName, standUpBoneTransforms);
     }
 
     void Update()
     {
+        switch (state)
+        {
+            case RagdollState.disabled:
+                break;
+            case RagdollState.enabled:
+                RagdollBehaviour();
+                break;
+            case RagdollState.standingUp:
+                StartCoroutine(StandingUpBehaviour());
+                break;
+            case RagdollState.resettingBones:
+                ResettingBonesBehaviour();
+                break;
+        }
+    }
 
-        //if (Input.GetKeyDown(KeyCode.Z))
-        //    EnableRagdoll(new Vector3(0, 10000, 0));
+    private void RagdollBehaviour()
+    {
+        //TODO: add bouncing, scoring, etc...
+        //Trigger DisableRagdoll someway
+
+        if (Input.GetButtonDown("ResetPlayer"))
+        {
+            AlignRotationToHips();
+            AlignPositionToHips();
+
+            PopulateBoneTransforms(ragdollBoneTransforms);
+            state = RagdollState.resettingBones;
+            bonesResetElapsedTime = 0;
+        }
+    }
+
+    public void DisableRagdoll()
+    {
+        
+
+        
+
+        //characterController.enabled = true;
+        //playerMovement.enabled = true;
+        animator.enabled = true;
+        playerCollider.enabled = true; 
+
+        foreach(Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = true;
+        }
+
+        
     }
 
     private void EnableRagdoll(Vector3 force)
     {
-        state = RagdollState.enabled;
-
         characterController.enabled = false;
         playerMovement.enabled = false;
         animator.enabled = false;
@@ -49,6 +125,77 @@ public class RagdollManager : MonoBehaviour
             rb.isKinematic = false;
             //rb.AddExplosionForce(300f, hitPoint, .1f, 0, ForceMode.Impulse);
             rb.AddForce(force);
+        }
+
+        state = RagdollState.enabled;
+    }
+
+    private void AlignRotationToHips()
+    {
+        Vector3 currentHipsPosition = hipsBone.position;
+        Quaternion currentHipsRotation = hipsBone.rotation;
+
+        Vector3 desiredDirection = hipsBone.up * -1;
+        desiredDirection.y = 0;
+        desiredDirection.Normalize();
+
+        Quaternion fromToRotation = Quaternion.FromToRotation(transform.forward, desiredDirection);
+        transform.rotation *= fromToRotation;
+
+        hipsBone.position = currentHipsPosition;
+        hipsBone.rotation = currentHipsRotation;
+    }
+
+    private void AlignPositionToHips()
+    {
+        Vector3 currentHipsPosition = hipsBone.position;
+        transform.position = hipsBone.position;
+
+        Vector3 positionOffset = standUpBoneTransforms[0].position;
+        positionOffset.y = 0;
+        positionOffset = transform.rotation * positionOffset;
+        transform.position -= positionOffset;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hitInfo))
+        {
+            transform.position = new Vector3(transform.position.x, hitInfo.point.y, transform.position.z);
+        }
+
+        hipsBone.position = currentHipsPosition;
+    }
+
+
+
+    private void ResettingBonesBehaviour()
+    {
+        bonesResetElapsedTime += Time.deltaTime;
+        float elapsedPercentage = bonesResetElapsedTime / timeToResetBones;
+
+        for (int i = 0; i < bones.Length; i++)
+        {
+            bones[i].localPosition = Vector3.Lerp(ragdollBoneTransforms[i].position, standUpBoneTransforms[i].position, elapsedPercentage);
+            bones[i].localRotation = Quaternion.Lerp(ragdollBoneTransforms[i].rotation, standUpBoneTransforms[i].rotation, elapsedPercentage);
+        }
+
+        if (elapsedPercentage >= 1)
+        {
+            DisableRagdoll();
+
+            state = RagdollState.standingUp;
+            animator.Play(faceUpStandAnimationStateName);
+        }
+    }
+
+    private IEnumerator StandingUpBehaviour()
+    {
+        yield return new WaitForEndOfFrame();
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(faceUpStandAnimationStateName))
+        {
+            state = RagdollState.disabled;
+
+            characterController.enabled = true;
+            playerMovement.enabled = true;
+
         }
     }
 
@@ -67,33 +214,30 @@ public class RagdollManager : MonoBehaviour
         }    
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    //Debug.Log(collision.gameObject.name);
-    //    if (collision.gameObject.CompareTag("Vehicle"))
-    //    {
-    //        Vector3 relativeVelocity = collision.relativeVelocity;
+    private void PopulateBoneTransforms(BoneTransform[] boneTransforms)
+    {
+        for (int i = 0; i < bones.Length; i++)
+        {
+            boneTransforms[i].position = bones[i].localPosition;
+            boneTransforms[i].rotation = bones[i].localRotation;
+        }
+    }
 
+    private void PopulateAnimationStartBoneTransforms(string clipName, BoneTransform[] boneTransforms)
+    {
+        Vector3 positionBeforeSampling = transform.position;
+        Quaternion rotationBeforeSampling = transform.rotation;
 
-    //        EnableRagdoll(collision.relativeVelocity);
-    //    }
-    //}
-    //private void OnControllerColliderHit(ControllerColliderHit hit)
-    //{
-    //    Debug.Log(hit.gameObject.name);
-    //    if (hit.gameObject.CompareTag("Vehicle"))
-    //    {
-    //        Vector3 vehicleVelocity = hit.rigidbody.velocity;
-    //        Vector3 characterVelocity = hit.controller.velocity;
-    //        Vector3 hitVelocity = vehicleVelocity + characterVelocity;
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name != clipName) continue;
 
-    //        //Vector3 hitPoint = hit.point;
-    //        Vector3 hitDirection = (hit.point - transform.position).normalized;
-    //        Vector3 hitForce = Vector3.Scale(hitVelocity, hitDirection) * 30000;
+            clip.SampleAnimation(gameObject, 0);
+            PopulateBoneTransforms(boneTransforms);
+            break;
+        }
 
-
-
-    //        EnableRagdoll(hitForce);
-    //    }
-    //}
+        transform.position = positionBeforeSampling;
+        transform.rotation = rotationBeforeSampling;
+    }
 }
