@@ -44,6 +44,10 @@ public class RagdollManager : MonoBehaviour
     float lastCollisionTime;
     [SerializeField] float ragdollCollisionInterval = 0.3f;
 
+    [SerializeField] float standUpVelocityThreshold = 0.3f;
+    [SerializeField] float standUpDelay = 1.0f;
+    float standUpTimer;
+
     private void Awake()
     {
         RagdollCollision.OnAnyRagdollCollision += OnRagdollCollision;
@@ -99,8 +103,22 @@ public class RagdollManager : MonoBehaviour
         //TODO: add bouncing, scoring, etc...
         //Trigger DisableRagdoll someway
 
-        if (Input.GetButtonDown("ResetPlayer"))
+        //if (Input.GetButtonDown("ResetPlayer"))
+        if (ragdollRigidbodies[0].velocity.sqrMagnitude < standUpVelocityThreshold)
         {
+            Debug.Log("increasing timer");
+            standUpTimer += Time.deltaTime;
+        }
+        else
+        {
+            Debug.Log("nothing");
+            standUpTimer = 0;
+        }
+
+        if (standUpTimer >= standUpDelay)
+        {
+            standUpTimer = 0;
+
             AlignRotationToHips();
             AlignPositionToHips();
 
