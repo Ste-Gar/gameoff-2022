@@ -21,6 +21,7 @@ public class RagdollManager : MonoBehaviour
 
     RagdollState state = RagdollState.disabled;
     private Rigidbody[] ragdollRigidbodies;
+    public Rigidbody[] RagdollRigidbodies { get { return ragdollRigidbodies; } }
     private Transform hipsBone;
 
     private BoneTransform[] standUpBoneTransforms;

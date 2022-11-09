@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     const string JUMP_BUTTON = "Jump";
 
     CharacterController charController;
-    Transform mainCam;
+    Transform mainCamTransform;
     float verticalVelocity;
     Vector3 moveDirection;
 
@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         charController = GetComponent<CharacterController>();
-        mainCam = Camera.main.transform;
+        mainCamTransform = Camera.main.transform;
     }
 
     private void Start()
@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (movement.magnitude > 0 && (allowMidairControls || playerIsGrounded))
         {
-            float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + mainCam.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + mainCamTransform.eulerAngles.y;
             //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); //for smooth turning; disabled as it makes movement feel sluggish
             //Quaternion rotation = Quaternion.Euler(0, angle, 0);
             Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);

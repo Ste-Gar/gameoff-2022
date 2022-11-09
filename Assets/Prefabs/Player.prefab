@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4474927065715391017}
   - component: {fileID: 4474927065715391018}
   - component: {fileID: 4474927065715391021}
+  - component: {fileID: 81866775178416282}
   - component: {fileID: 7880449222225031004}
   - component: {fileID: 4153719515333009054}
   - component: {fileID: 4835962995912790025}
@@ -73,6 +74,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.95, z: 0}
+--- !u!114 &81866775178416282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4474927065715391014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7b77f20908bf8f47b9db306c6caa7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7880449222225031004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,6 +103,7 @@ MonoBehaviour:
   faceUpStandAnimationClipName: Stand-FaceUp
   timeToResetBones: 0.5
   collisionForceMulti: 150
+  ragdollCollisionInterval: 0.3
 --- !u!114 &4153719515333009054
 MonoBehaviour:
   m_ObjectHideFlags: 0
