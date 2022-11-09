@@ -96,10 +96,6 @@ public class RagdollManager : MonoBehaviour
 
     public void DisableRagdoll()
     {
-        
-
-        
-
         //characterController.enabled = true;
         //playerMovement.enabled = true;
         animator.enabled = true;
@@ -109,23 +105,14 @@ public class RagdollManager : MonoBehaviour
         {
             rb.isKinematic = true;
         }
-
-        
     }
 
-    private void EnableRagdoll(Vector3 force)
+    private void EnableRagdoll()
     {
         characterController.enabled = false;
         playerMovement.enabled = false;
         animator.enabled = false;
         playerCollider.enabled = false;
-
-        foreach (Rigidbody rb in ragdollRigidbodies)
-        {
-            rb.isKinematic = false;
-            //rb.AddExplosionForce(300f, hitPoint, .1f, 0, ForceMode.Impulse);
-            rb.AddForce(force);
-        }
 
         state = RagdollState.enabled;
     }
@@ -203,15 +190,28 @@ public class RagdollManager : MonoBehaviour
     {
         if (other.CompareTag("Vehicle"))
         {
-            //Vector3 hitDirection = (other.transform.position - transform.position).normalized;
-            Vector3 vehicleVelocity = other.attachedRigidbody.velocity;
-            Vector3 playerVelocity = characterController.velocity;
-            Vector3 relativeVelocity = vehicleVelocity + playerVelocity + Vector3.up * 10;
+            EnableRagdoll();
+            ThrowRagdoll(other);
+        }
+    }
 
-            Vector3 hitForce = relativeVelocity * collisionForceMulti;
+    private void ThrowRagdoll(Collider other)
+    {
+        //Vector3 hitDirection = (other.transform.position - transform.position).normalized;
+        Vector3 vehicleVelocity = other.attachedRigidbody.velocity;
+        Vector3 playerVelocity = characterController.velocity;
+        Vector3 relativeVelocity = vehicleVelocity + playerVelocity + Vector3.up * 10;
 
-            EnableRagdoll(hitForce);
-        }    
+        Vector3 hitForce = relativeVelocity * collisionForceMulti;
+
+
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = false;
+            //rb.AddExplosionForce(300f, hitPoint, .1f, 0, ForceMode.Impulse);
+            rb.AddForce(hitForce);
+        }
+        //EnableRagdoll(hitForce);
     }
 
     private void PopulateBoneTransforms(BoneTransform[] boneTransforms)
