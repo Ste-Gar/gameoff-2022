@@ -39,8 +39,13 @@ public class RagdollManager : MonoBehaviour
 
     [SerializeField] float collisionForceMulti = 100;
 
+    float lastCollisionTime;
+    [SerializeField] float ragdollCollisionInterval = 0.3f;
+
     private void Awake()
     {
+        RagdollCollision.OnAnyRagdollCollision += OnRagdollCollision;
+
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
         characterController = GetComponent<CharacterController>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -58,6 +63,14 @@ public class RagdollManager : MonoBehaviour
         }
 
         PopulateAnimationStartBoneTransforms(faceUpStandAnimationClipName, standUpBoneTransforms);
+    }
+
+    private void OnRagdollCollision(object sender, Collision e)
+    {
+        if (Time.time - lastCollisionTime < ragdollCollisionInterval) return;
+
+        lastCollisionTime = Time.time;
+        ThrowRagdoll(e.collider);
     }
 
     void Update()
