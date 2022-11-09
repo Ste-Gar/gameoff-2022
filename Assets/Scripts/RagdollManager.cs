@@ -90,7 +90,8 @@ public class RagdollManager : MonoBehaviour
                 RagdollBehaviour();
                 break;
             case RagdollState.standingUp:
-                StartCoroutine(StandingUpBehaviour());
+                //StartCoroutine(StandingUpBehaviour());
+                StandingUpBehaviour();
                 break;
             case RagdollState.resettingBones:
                 ResettingBonesBehaviour();
@@ -106,12 +107,10 @@ public class RagdollManager : MonoBehaviour
         //if (Input.GetButtonDown("ResetPlayer"))
         if (ragdollRigidbodies[0].velocity.sqrMagnitude < standUpVelocityThreshold)
         {
-            Debug.Log("increasing timer");
             standUpTimer += Time.deltaTime;
         }
         else
         {
-            Debug.Log("nothing");
             standUpTimer = 0;
         }
 
@@ -209,9 +208,9 @@ public class RagdollManager : MonoBehaviour
         }
     }
 
-    private IEnumerator StandingUpBehaviour()
+    private void StandingUpBehaviour()
     {
-        yield return new WaitForEndOfFrame();
+        //yield return new WaitForEndOfFrame();
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName(faceUpStandAnimationStateName))
         {
             state = RagdollState.disabled;

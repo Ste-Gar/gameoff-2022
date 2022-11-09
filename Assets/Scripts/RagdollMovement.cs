@@ -46,7 +46,9 @@ public class RagdollMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (movementInput == Vector3.zero) return;
+
         if (ragdollRigidbodies[0].velocity.sqrMagnitude < velocityDeadzone) return;
+        //if (ragdollRigidbodies[0].transform.position.y < 100) return;
 
         foreach(Rigidbody rb in ragdollRigidbodies)
         {
