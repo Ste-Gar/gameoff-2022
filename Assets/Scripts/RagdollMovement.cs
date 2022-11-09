@@ -15,8 +15,8 @@ public class RagdollMovement : MonoBehaviour
     Vector3 moveDirection;
 
     [SerializeField] float movementForceMulti = 10f;
-
     [SerializeField] ForceMode movementForceMode;
+    [SerializeField] float velocityDeadzone = 10f;
 
     private void Awake()
     {
@@ -46,6 +46,7 @@ public class RagdollMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (movementInput == Vector3.zero) return;
+        if (ragdollRigidbodies[0].velocity.sqrMagnitude < velocityDeadzone) return;
 
         foreach(Rigidbody rb in ragdollRigidbodies)
         {

@@ -86,6 +86,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b77f20908bf8f47b9db306c6caa7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementForceMulti: 100
+  movementForceMode: 0
+  velocityDeadzone: 10
 --- !u!114 &7880449222225031004
 MonoBehaviour:
   m_ObjectHideFlags: 0

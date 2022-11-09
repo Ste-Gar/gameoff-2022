@@ -29,6 +29,7 @@ public class RagdollManager : MonoBehaviour
     private Transform[] bones;
     private float bonesResetElapsedTime;
 
+    RagdollMovement ragdollMovement;
     CapsuleCollider playerCollider;
     CharacterController characterController;
     PlayerMovement playerMovement;
@@ -47,6 +48,7 @@ public class RagdollManager : MonoBehaviour
     {
         RagdollCollision.OnAnyRagdollCollision += OnRagdollCollision;
 
+        ragdollMovement = GetComponent<RagdollMovement>();
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
         characterController = GetComponent<CharacterController>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -113,7 +115,8 @@ public class RagdollManager : MonoBehaviour
         //characterController.enabled = true;
         //playerMovement.enabled = true;
         animator.enabled = true;
-        playerCollider.enabled = true; 
+        playerCollider.enabled = true;
+        ragdollMovement.enabled = false;
 
         foreach(Rigidbody rb in ragdollRigidbodies)
         {
@@ -127,6 +130,7 @@ public class RagdollManager : MonoBehaviour
         playerMovement.enabled = false;
         animator.enabled = false;
         playerCollider.enabled = false;
+        ragdollMovement.enabled = true;
 
         state = RagdollState.enabled;
     }
