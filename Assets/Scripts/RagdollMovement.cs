@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,10 +18,23 @@ public class RagdollMovement : MonoBehaviour
     [SerializeField] float movementForceMulti = 10f;
     [SerializeField] ForceMode movementForceMode;
     [SerializeField] float velocityDeadzone = 10f;
+    [SerializeField] float groundImpactVelocityMulti = 45f;
+    [SerializeField] float groundImpactInterval = 0.5f;
+    float groundImpactTimer;
 
     private void Awake()
     {
         ragdollManager = GetComponent<RagdollManager>();
+    }
+
+    private void OnEnable()
+    {
+        RagdollCollision.OnAnyRagdollGroundCollisionStay += OnGroundCollisionStay;
+    }
+
+    private void OnDisable()
+    {
+        RagdollCollision.OnAnyRagdollGroundCollisionStay -= OnGroundCollisionStay;
     }
 
     void Start()
@@ -32,6 +46,8 @@ public class RagdollMovement : MonoBehaviour
 
     void Update()
     {
+        groundImpactTimer += Time.deltaTime;
+
         float lateralInput = Input.GetAxisRaw(HORIZONTAL_AXIS);
         float forwardInput = Input.GetAxisRaw(VERTICAL_AXIS);
         movementInput = new Vector3(lateralInput, 0, forwardInput).normalized;
@@ -54,5 +70,19 @@ public class RagdollMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection * movementForceMulti, movementForceMode);
         }
+    }
+
+    private void OnGroundCollisionStay(object sender, EventArgs e)
+    {
+        if (groundImpactTimer < groundImpactInterval) return;
+
+        groundImpactTimer = 0;
+        float velocityMultiplier = groundImpactVelocityMulti * Time.deltaTime;
+
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.velocity *= velocityMultiplier;
+        }
+        Debug.Log($"VelMulti: {velocityMultiplier}");
     }
 }

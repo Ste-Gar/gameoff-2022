@@ -50,7 +50,7 @@ public class RagdollManager : MonoBehaviour
 
     private void Awake()
     {
-        RagdollCollision.OnAnyRagdollCollision += OnRagdollCollision;
+        RagdollCollision.OnAnyRagdollVehicleCollision += OnRagdollVehicleCollision;
 
         ragdollMovement = GetComponent<RagdollMovement>();
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
@@ -72,12 +72,17 @@ public class RagdollManager : MonoBehaviour
         PopulateAnimationStartBoneTransforms(faceUpStandAnimationClipName, standUpBoneTransforms);
     }
 
-    private void OnRagdollCollision(object sender, Collision e)
+    private void OnDestroy()
+    {
+        RagdollCollision.OnAnyRagdollVehicleCollision -= OnRagdollVehicleCollision;
+    }
+
+    private void OnRagdollVehicleCollision(object sender, Collision other)
     {
         if (Time.time - lastCollisionTime < ragdollCollisionInterval) return;
 
         lastCollisionTime = Time.time;
-        ThrowRagdoll(e.collider);
+        ThrowRagdoll(other.collider);
     }
 
     void Update()
