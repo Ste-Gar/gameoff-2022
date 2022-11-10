@@ -103,7 +103,6 @@ public class RagdollManager : MonoBehaviour
                 RagdollBehaviour();
                 break;
             case RagdollState.standingUp:
-                //StartCoroutine(StandingUpBehaviour());
                 StandingUpBehaviour();
                 break;
             case RagdollState.resettingBones:
@@ -114,8 +113,6 @@ public class RagdollManager : MonoBehaviour
 
     private void RagdollBehaviour()
     {
-        //TODO: add bouncing, scoring, etc...
-
         if (ragdollRigidbodies[0].velocity.sqrMagnitude < standUpVelocityThreshold)
         {
             standUpTimer += Time.deltaTime;
@@ -128,6 +125,7 @@ public class RagdollManager : MonoBehaviour
         if (standUpTimer >= standUpDelay)
         {
             standUpTimer = 0;
+            isFacingUp = SetFacingUp();
 
             AlignRotationToHips();
             AlignPositionToHips();
@@ -135,14 +133,11 @@ public class RagdollManager : MonoBehaviour
             PopulateBoneTransforms(ragdollBoneTransforms);
             state = RagdollState.resettingBones;
             bonesResetElapsedTime = 0;
-            isFacingUp = SetFacingUp();
         }
     }
 
     public void DisableRagdoll()
     {
-        //characterController.enabled = true;
-        //playerMovement.enabled = true;
         animator.enabled = true;
         playerCollider.enabled = true;
         ragdollMovement.enabled = false;
@@ -169,7 +164,7 @@ public class RagdollManager : MonoBehaviour
         Vector3 currentHipsPosition = hipsBone.position;
         Quaternion currentHipsRotation = hipsBone.rotation;
 
-        Vector3 desiredDirection = hipsBone.up * -1;
+        Vector3 desiredDirection = isFacingUp ? hipsBone.up * -1 : hipsBone.up;
         desiredDirection.y = 0;
         desiredDirection.Normalize();
 
@@ -197,8 +192,6 @@ public class RagdollManager : MonoBehaviour
 
         hipsBone.position = currentHipsPosition;
     }
-
-
 
     private void ResettingBonesBehaviour()
     {
@@ -236,17 +229,6 @@ public class RagdollManager : MonoBehaviour
         }
     }
 
-    //private BoneTransform[] GetBoneTransformArrayFacing() 
-    //{
-    //    Debug.Log(Vector3.Dot(hipsBone.transform.TransformDirection(Vector3.up), Vector3.up));
-    //    if(Vector3.Dot(hipsBone.transform.TransformDirection(Vector3.up), Vector3.up) < 0)
-    //    {
-    //        return standFaceDownBoneTransforms;
-    //    }
-
-    //    return standFaceUpBoneTransforms;
-    //}
-
     private bool SetFacingUp()
     {
         if(Vector3.Dot(hipsBone.transform.TransformDirection(Vector3.forward), Vector3.up) < 0)
@@ -259,7 +241,6 @@ public class RagdollManager : MonoBehaviour
 
     private void StandingUpBehaviour()
     {
-        //yield return new WaitForEndOfFrame();
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName(faceUpStandAnimationStateName) && !animator.GetCurrentAnimatorStateInfo(0).IsName(faceUpStandAnimationStateName))
         {
             state = RagdollState.disabled;
@@ -292,10 +273,8 @@ public class RagdollManager : MonoBehaviour
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
             rb.isKinematic = false;
-            //rb.AddExplosionForce(300f, hitPoint, .1f, 0, ForceMode.Impulse);
             rb.AddForce(hitForce);
         }
-        //EnableRagdoll(hitForce);
     }
 
     private void PopulateBoneTransforms(BoneTransform[] boneTransforms)
