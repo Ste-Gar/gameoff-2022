@@ -83,6 +83,5 @@ public class RagdollMovement : MonoBehaviour
         {
             rb.velocity *= velocityMultiplier;
         }
-        Debug.Log($"VelMulti: {velocityMultiplier}");
     }
 }

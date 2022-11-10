@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RagdollManager : MonoBehaviour
 {
+    [System.Serializable]
     private class BoneTransform
     {
         public Vector3 position { get; set; }
@@ -24,10 +25,12 @@ public class RagdollManager : MonoBehaviour
     public Rigidbody[] RagdollRigidbodies { get { return ragdollRigidbodies; } }
     private Transform hipsBone;
 
-    private BoneTransform[] standUpBoneTransforms;
+    private BoneTransform[] standFaceUpBoneTransforms;
+    private BoneTransform[] standFaceDownBoneTransforms;
     private BoneTransform[] ragdollBoneTransforms;
     private Transform[] bones;
     private float bonesResetElapsedTime;
+    private bool isFacingUp;
 
     RagdollMovement ragdollMovement;
     CapsuleCollider playerCollider;
@@ -37,6 +40,8 @@ public class RagdollManager : MonoBehaviour
 
     [SerializeField] string faceUpStandAnimationStateName;
     [SerializeField] string faceUpStandAnimationClipName;
+    [SerializeField] string faceDownStandAnimationStateName;
+    [SerializeField] string faceDownStandAnimationClipName;
     [SerializeField] float timeToResetBones = 0.5f;
 
     [SerializeField] float collisionForceMulti = 100;
@@ -61,15 +66,18 @@ public class RagdollManager : MonoBehaviour
         hipsBone = animator.GetBoneTransform(HumanBodyBones.Hips);
 
         bones = hipsBone.GetComponentsInChildren<Transform>();
-        standUpBoneTransforms = new BoneTransform[bones.Length];
+        standFaceUpBoneTransforms = new BoneTransform[bones.Length];
+        standFaceDownBoneTransforms = new BoneTransform[bones.Length];
         ragdollBoneTransforms = new BoneTransform[bones.Length];
         for (int i = 0; i < bones.Length; i++)
         {
-            standUpBoneTransforms[i] = new BoneTransform();
+            standFaceUpBoneTransforms[i] = new BoneTransform();
+            standFaceDownBoneTransforms[i] = new BoneTransform();
             ragdollBoneTransforms[i] = new BoneTransform();
         }
 
-        PopulateAnimationStartBoneTransforms(faceUpStandAnimationClipName, standUpBoneTransforms);
+        PopulateAnimationStartBoneTransforms(faceUpStandAnimationClipName, standFaceUpBoneTransforms);
+        PopulateAnimationStartBoneTransforms(faceDownStandAnimationClipName, standFaceDownBoneTransforms);
     }
 
     private void OnDestroy()
@@ -108,7 +116,6 @@ public class RagdollManager : MonoBehaviour
     {
         //TODO: add bouncing, scoring, etc...
 
-        //if (Input.GetButtonDown("ResetPlayer"))
         if (ragdollRigidbodies[0].velocity.sqrMagnitude < standUpVelocityThreshold)
         {
             standUpTimer += Time.deltaTime;
@@ -128,6 +135,7 @@ public class RagdollManager : MonoBehaviour
             PopulateBoneTransforms(ragdollBoneTransforms);
             state = RagdollState.resettingBones;
             bonesResetElapsedTime = 0;
+            isFacingUp = SetFacingUp();
         }
     }
 
@@ -139,7 +147,7 @@ public class RagdollManager : MonoBehaviour
         playerCollider.enabled = true;
         ragdollMovement.enabled = false;
 
-        foreach(Rigidbody rb in ragdollRigidbodies)
+        foreach (Rigidbody rb in ragdollRigidbodies)
         {
             rb.isKinematic = true;
         }
@@ -177,7 +185,7 @@ public class RagdollManager : MonoBehaviour
         Vector3 currentHipsPosition = hipsBone.position;
         transform.position = hipsBone.position;
 
-        Vector3 positionOffset = standUpBoneTransforms[0].position;
+        Vector3 positionOffset = standFaceUpBoneTransforms[0].position;
         positionOffset.y = 0;
         positionOffset = transform.rotation * positionOffset;
         transform.position -= positionOffset;
@@ -197,10 +205,21 @@ public class RagdollManager : MonoBehaviour
         bonesResetElapsedTime += Time.deltaTime;
         float elapsedPercentage = bonesResetElapsedTime / timeToResetBones;
 
-        for (int i = 0; i < bones.Length; i++)
+        if (isFacingUp)
         {
-            bones[i].localPosition = Vector3.Lerp(ragdollBoneTransforms[i].position, standUpBoneTransforms[i].position, elapsedPercentage);
-            bones[i].localRotation = Quaternion.Lerp(ragdollBoneTransforms[i].rotation, standUpBoneTransforms[i].rotation, elapsedPercentage);
+            for (int i = 0; i < bones.Length; i++)
+            {
+                bones[i].localPosition = Vector3.Lerp(ragdollBoneTransforms[i].position, standFaceUpBoneTransforms[i].position, elapsedPercentage);
+                bones[i].localRotation = Quaternion.Lerp(ragdollBoneTransforms[i].rotation, standFaceUpBoneTransforms[i].rotation, elapsedPercentage);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < bones.Length; i++)
+            {
+                bones[i].localPosition = Vector3.Lerp(ragdollBoneTransforms[i].position, standFaceDownBoneTransforms[i].position, elapsedPercentage);
+                bones[i].localRotation = Quaternion.Lerp(ragdollBoneTransforms[i].rotation, standFaceDownBoneTransforms[i].rotation, elapsedPercentage);
+            }
         }
 
         if (elapsedPercentage >= 1)
@@ -208,14 +227,40 @@ public class RagdollManager : MonoBehaviour
             state = RagdollState.standingUp;
             DisableRagdoll();
 
-            animator.Play(faceUpStandAnimationStateName);
+            animator.ResetTrigger("jump");
+
+            if (isFacingUp)
+                animator.Play(faceUpStandAnimationStateName);
+            else
+                animator.Play(faceDownStandAnimationStateName);
         }
     }
+
+    //private BoneTransform[] GetBoneTransformArrayFacing() 
+    //{
+    //    Debug.Log(Vector3.Dot(hipsBone.transform.TransformDirection(Vector3.up), Vector3.up));
+    //    if(Vector3.Dot(hipsBone.transform.TransformDirection(Vector3.up), Vector3.up) < 0)
+    //    {
+    //        return standFaceDownBoneTransforms;
+    //    }
+
+    //    return standFaceUpBoneTransforms;
+    //}
+
+    private bool SetFacingUp()
+    {
+        if(Vector3.Dot(hipsBone.transform.TransformDirection(Vector3.forward), Vector3.up) < 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
 
     private void StandingUpBehaviour()
     {
         //yield return new WaitForEndOfFrame();
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(faceUpStandAnimationStateName))
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(faceUpStandAnimationStateName) && !animator.GetCurrentAnimatorStateInfo(0).IsName(faceUpStandAnimationStateName))
         {
             state = RagdollState.disabled;
 

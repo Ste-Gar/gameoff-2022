@@ -107,6 +107,8 @@ MonoBehaviour:
   animator: {fileID: 978339598}
   faceUpStandAnimationStateName: Get_Up_From_Back
   faceUpStandAnimationClipName: Armature|Get_Up_From_Back
+  faceDownStandAnimationStateName: Get_Up_From_Stomach
+  faceDownStandAnimationClipName: Armature|Get_Up_From_Stomach
   timeToResetBones: 0.5
   collisionForceMulti: 150
   ragdollCollisionInterval: 0.3
