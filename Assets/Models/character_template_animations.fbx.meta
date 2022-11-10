@@ -122,7 +122,7 @@ ModelImporter:
       name: Armature|Get_Up_From_Stomach
       takeName: Armature|Get_Up_From_Stomach
       internalID: 0
-      firstFrame: 0
+      firstFrame: 4
       lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
