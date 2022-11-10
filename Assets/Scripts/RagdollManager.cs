@@ -107,7 +107,6 @@ public class RagdollManager : MonoBehaviour
     private void RagdollBehaviour()
     {
         //TODO: add bouncing, scoring, etc...
-        //Trigger DisableRagdoll someway
 
         //if (Input.GetButtonDown("ResetPlayer"))
         if (ragdollRigidbodies[0].velocity.sqrMagnitude < standUpVelocityThreshold)
@@ -206,9 +205,9 @@ public class RagdollManager : MonoBehaviour
 
         if (elapsedPercentage >= 1)
         {
+            state = RagdollState.standingUp;
             DisableRagdoll();
 
-            state = RagdollState.standingUp;
             animator.Play(faceUpStandAnimationStateName);
         }
     }
