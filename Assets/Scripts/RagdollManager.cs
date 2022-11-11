@@ -87,9 +87,9 @@ public class RagdollManager : MonoBehaviour
 
     private void OnRagdollVehicleCollision(object sender, Collision other)
     {
-        if (Time.time - lastCollisionTime < ragdollCollisionInterval) return;
+        //if (Time.time - lastCollisionTime < ragdollCollisionInterval) return;
 
-        lastCollisionTime = Time.time;
+        //lastCollisionTime = Time.time;
         ThrowRagdoll(other.collider);
     }
 
@@ -262,6 +262,10 @@ public class RagdollManager : MonoBehaviour
 
     private void ThrowRagdoll(Collider other)
     {
+        if (Time.time - lastCollisionTime < ragdollCollisionInterval) return;
+
+        lastCollisionTime = Time.time;
+
         //Vector3 hitDirection = (other.transform.position - transform.position).normalized;
         Vector3 vehicleVelocity = other.attachedRigidbody.velocity;
         Vector3 playerVelocity = characterController.velocity;

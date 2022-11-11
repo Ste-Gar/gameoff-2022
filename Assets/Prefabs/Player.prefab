@@ -87,9 +87,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b77f20908bf8f47b9db306c6caa7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementForceMulti: 50
+  movementForceMulti: 75
   movementForceMode: 0
-  velocityDeadzone: 100
+  velocityDeadzone: 50
   groundImpactVelocityMulti: 35
   groundImpactInterval: 0.5
 --- !u!114 &7880449222225031004
