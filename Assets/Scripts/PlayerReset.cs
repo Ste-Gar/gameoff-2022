@@ -1,22 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerReset : MonoBehaviour
 {
     const string RESETPLAYER_BTN = "ResetPlayer";
 
-    Vector3 startPosition;
-    Quaternion startRotation;
-    RagdollManager ragdollManager;
-
-    private void Start()
+    private void Update()
     {
-        ragdollManager = GetComponent<RagdollManager>();
-
-        startPosition = transform.position;
-        startRotation = transform.rotation;
+        if (Input.GetButtonDown(RESETPLAYER_BTN))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
+
+    //Vector3 startPosition;
+    //Quaternion startRotation;
+    //RagdollManager ragdollManager;
+
+    //private void Start()
+    //{
+    //    ragdollManager = GetComponent<RagdollManager>();
+
+    //    startPosition = transform.position;
+    //    startRotation = transform.rotation;
+    //}
 
     //void Update()
     //{
