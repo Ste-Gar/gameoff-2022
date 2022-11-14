@@ -8,6 +8,7 @@ public class VehicleSpawner : MonoBehaviour
 
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] float maxSpawnDelay = 2f;
+    [SerializeField] float spawnXOffset = 1f;
 
     private void Awake()
     {
@@ -22,7 +23,8 @@ public class VehicleSpawner : MonoBehaviour
     private void SpawnVehicle()
     {
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length - 1)];
+        Vector3 spawnPosition = spawnPoint.position + Vector3.forward * Random.Range(-spawnXOffset, spawnXOffset);
 
-        carPool.SpawnFromPool("Car", spawnPoint.position, spawnPoint.rotation);
+        carPool.SpawnFromPool("Car", spawnPosition, spawnPoint.rotation);
     }
 }
