@@ -22,7 +22,7 @@ public class VehicleSpawner : MonoBehaviour
 
     private void SpawnVehicle()
     {
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length - 1)];
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         Vector3 spawnPosition = spawnPoint.position + Vector3.forward * Random.Range(-spawnXOffset, spawnXOffset);
 
         carPool.SpawnFromPool("Car", spawnPosition, spawnPoint.rotation);

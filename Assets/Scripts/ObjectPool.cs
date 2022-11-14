@@ -44,6 +44,15 @@ public class ObjectPool : MonoBehaviour
 
         GameObject obj = poolDictionary[objectType].Dequeue();
 
+        if (obj.activeInHierarchy)
+        {
+            Debug.Log($"Queue empty; instantiating new object of type {objectType}");
+            GameObject newObj = Instantiate(obj, transform);
+            poolDictionary[objectType].Enqueue(obj);
+            obj = newObj;
+        }
+
+
         obj.SetActive(true);
         obj.transform.position = position;
         obj.transform.rotation = rotation;
