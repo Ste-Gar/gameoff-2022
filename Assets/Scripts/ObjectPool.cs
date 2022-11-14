@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,58 +8,47 @@ public class ObjectPool : MonoBehaviour
     [System.Serializable]
     public class Pool
     {
-        public string objectType;
+        //public string objectType;
         public GameObject prefab;
-        public int size;
+        public int amount;
     }
 
-    public List<Pool> pools;
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
+    [SerializeField] List<Pool> pools;
+    //public Dictionary<string, GameObject[]> poolDictionary;
+    private GameObject[] objects = new GameObject[0];
 
     private void Start()
     {
-        poolDictionary = new Dictionary<string, Queue<GameObject>>();
-
+        //poolDictionary = new Dictionary<string, GameObject[]>();
+        
         foreach (Pool pool in pools)
         {
-            Queue<GameObject> objectPool = new Queue<GameObject>();
+            int startingIndex = objects.Length;
+            Array.Resize(ref objects, objects.Length + pool.amount);
+            //GameObject[] objectPool = new GameObject[pool.amount];
 
-            for (int i = 0; i < pool.size; i++)
+            for (int i = startingIndex; i < objects.Length; i++)
             {
                 GameObject obj = Instantiate(pool.prefab, transform);
                 obj.SetActive(false);
-                objectPool.Enqueue(obj);
+                objects[i] = obj;
             }
-
-            poolDictionary.Add(pool.objectType, objectPool);
         }
     }
 
-    public GameObject SpawnFromPool(string objectType, Vector3 position, Quaternion rotation)
+    public void SpawnRandomFromPool(Vector3 position, Quaternion rotation)
     {
-        if (!poolDictionary.ContainsKey(objectType))
+        int objectIndex = UnityEngine.Random.Range(0, objects.Length);
+        
+        if (objects[objectIndex].activeInHierarchy)
         {
-            Debug.LogWarning("Object type not found: " + objectType);
-            return null;
+            SpawnRandomFromPool(position, rotation);
         }
-
-        GameObject obj = poolDictionary[objectType].Dequeue();
-
-        if (obj.activeInHierarchy)
+        else
         {
-            Debug.Log($"Queue empty; instantiating new object of type {objectType}");
-            GameObject newObj = Instantiate(obj, transform);
-            poolDictionary[objectType].Enqueue(obj);
-            obj = newObj;
+            objects[objectIndex].transform.position = position;
+            objects[objectIndex].transform.rotation = rotation;
+            objects[objectIndex].SetActive(true);
         }
-
-
-        obj.SetActive(true);
-        obj.transform.position = position;
-        obj.transform.rotation = rotation;
-
-        poolDictionary[objectType].Enqueue(obj);
-
-        return obj;
     }
 }
