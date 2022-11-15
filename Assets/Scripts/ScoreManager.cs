@@ -64,6 +64,5 @@ public class ScoreManager : MonoBehaviour
         UpdateTotal();
         isScoring = false;
         currentCombo = 0;
-        UpdateCombo();
     }
 }
