@@ -20,6 +20,9 @@ public class RagdollManager : MonoBehaviour
         resettingBones
     }
 
+    public event EventHandler onRagdollEnable;
+    public event EventHandler onRagdollDisable;
+
     RagdollState state = RagdollState.disabled;
     private Rigidbody[] ragdollRigidbodies;
     public Rigidbody[] RagdollRigidbodies { get { return ragdollRigidbodies; } }
@@ -104,11 +107,11 @@ public class RagdollManager : MonoBehaviour
             case RagdollState.enabled:
                 RagdollBehaviour();
                 break;
-            case RagdollState.standingUp:
-                StandingUpBehaviour();
-                break;
             case RagdollState.resettingBones:
                 ResettingBonesBehaviour();
+                break;
+            case RagdollState.standingUp:
+                StandingUpBehaviour();
                 break;
         }
     }
@@ -148,6 +151,8 @@ public class RagdollManager : MonoBehaviour
         {
             rb.isKinematic = true;
         }
+
+        onRagdollDisable?.Invoke(this, EventArgs.Empty);
     }
 
     private void EnableRagdoll()
@@ -159,6 +164,7 @@ public class RagdollManager : MonoBehaviour
         ragdollMovement.enabled = true;
 
         state = RagdollState.enabled;
+        onRagdollEnable?.Invoke(this, EventArgs.Empty);
     }
 
     private void AlignRotationToHips()
