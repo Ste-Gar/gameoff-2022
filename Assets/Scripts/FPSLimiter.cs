@@ -11,4 +11,9 @@ public class FPSLimiter : MonoBehaviour
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = fpsTarget;
     }
+
+    private void OnDestroy()
+    {
+        Application.targetFrameRate = -1;
+    }
 }

@@ -45,6 +45,8 @@ public class RagdollManager : MonoBehaviour
     [SerializeField] float timeToResetBones = 0.5f;
 
     [SerializeField] float collisionForceMulti = 100;
+    [SerializeField] float verticalForceMulti = 10;
+    private GameObject lastVehicleHit;
 
     float lastCollisionTime;
     [SerializeField] float ragdollCollisionInterval = 0.3f;
@@ -253,8 +255,13 @@ public class RagdollManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Vehicle"))
+        if (Time.time - lastCollisionTime < 1)
         {
+            lastVehicleHit = null;      //reset last vehicle hit after one second
+        }
+        if (other.CompareTag("Vehicle") && other.gameObject != lastVehicleHit)
+        {
+            lastVehicleHit = other.gameObject;
             EnableRagdoll();
             ThrowRagdoll(other);
         }
@@ -269,7 +276,7 @@ public class RagdollManager : MonoBehaviour
         //Vector3 hitDirection = (other.transform.position - transform.position).normalized;
         Vector3 vehicleVelocity = other.attachedRigidbody.velocity;
         Vector3 playerVelocity = characterController.velocity;
-        Vector3 relativeVelocity = vehicleVelocity + playerVelocity + Vector3.up * 10;
+        Vector3 relativeVelocity = -vehicleVelocity + playerVelocity + Vector3.up * verticalForceMulti;
 
         Vector3 hitForce = relativeVelocity * collisionForceMulti;
 
