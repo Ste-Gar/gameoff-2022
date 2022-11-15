@@ -141,7 +141,7 @@ public class RagdollManager : MonoBehaviour
     public void DisableRagdoll()
     {
         animator.enabled = true;
-        playerCollider.enabled = true;
+        //playerCollider.enabled = true;
         ragdollMovement.enabled = false;
 
         foreach (Rigidbody rb in ragdollRigidbodies)
@@ -199,6 +199,8 @@ public class RagdollManager : MonoBehaviour
     {
         bonesResetElapsedTime += Time.deltaTime;
         float elapsedPercentage = bonesResetElapsedTime / timeToResetBones;
+
+        playerCollider.enabled = true;
 
         if (isFacingUp)
         {
