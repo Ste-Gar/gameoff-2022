@@ -14,6 +14,7 @@ public class ScoreDisplay : MonoBehaviour
     }
 
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI multiplierText;
     [SerializeField] TextMeshProUGUI totalText;
 
     [SerializeField] private float fadeInDuration = 0.3f;
@@ -43,6 +44,7 @@ public class ScoreDisplay : MonoBehaviour
     private void Start()
     {
         scoreText.alpha = 0;
+        multiplierText.alpha = 0;
     }
 
     private void Update()
@@ -73,6 +75,7 @@ public class ScoreDisplay : MonoBehaviour
     private void FadeIn()
     {
         scoreText.alpha = Mathf.Lerp(0, 1, fadeTime += 1 / fadeInDuration * Time.deltaTime);
+        multiplierText.alpha = scoreText.alpha;
         
         if(scoreText.alpha >= 1)
         {
@@ -84,7 +87,8 @@ public class ScoreDisplay : MonoBehaviour
     private void FadeOut()
     {
         scoreText.alpha = Mathf.Lerp(1, 0, fadeTime += 1 / fadeOutDuration * Time.deltaTime);
-        
+        multiplierText.alpha = scoreText.alpha;
+
         if (scoreText.alpha <= 0)
         {
             fadeStatus = FadeStatus.Waiting;

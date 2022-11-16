@@ -22,6 +22,7 @@ public class RagdollManager : MonoBehaviour
 
     public event EventHandler onRagdollEnable;
     public event EventHandler onRagdollDisable;
+    public event EventHandler<Collider> onRagdollThrow;
 
     RagdollState state = RagdollState.disabled;
     private Rigidbody[] ragdollRigidbodies;
@@ -278,6 +279,7 @@ public class RagdollManager : MonoBehaviour
     private void ThrowRagdoll(Collider other)
     {
         if (Time.time - lastCollisionTime < ragdollCollisionInterval) return;
+        onRagdollThrow?.Invoke(this, other);
 
         lastCollisionTime = Time.time;
 

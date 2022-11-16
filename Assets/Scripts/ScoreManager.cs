@@ -7,9 +7,11 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI multiplierText;
     [SerializeField] TextMeshProUGUI totalText;
 
     float currentCombo;
+    float currentMultiplier;
     float totalScore;
 
     private RagdollManager playerRagdoll;
@@ -26,31 +28,34 @@ public class ScoreManager : MonoBehaviour
     {
         playerRagdoll.onRagdollEnable += StartCombo;
         playerRagdoll.onRagdollDisable += EndCombo;
+        playerRagdoll.onRagdollThrow += UpdateMultiplier;
     }
 
     private void OnDisable()
     {
         playerRagdoll.onRagdollEnable -= StartCombo;
         playerRagdoll.onRagdollDisable -= EndCombo;
+        playerRagdoll.onRagdollThrow -= UpdateMultiplier;
     }
 
     private void Update()
     {
         if (isScoring)
         {
-            currentCombo += Time.deltaTime * 100;
             UpdateCombo();
         }
     }
 
     private void UpdateCombo()
     {
+        currentCombo += Time.deltaTime * 100;
         scoreText.text = $"${currentCombo.ToString(format)}";
     }
 
-    private void UpdateTotal()
+    private void UpdateMultiplier(object sender, Collider vehicle)
     {
-        totalText.text = $"${totalScore.ToString(format)}";
+        currentMultiplier += vehicle.gameObject.GetComponent<VehicleMovement>().ScoreMultiplier;
+        multiplierText.text = $"x{currentMultiplier}";
     }
 
     private void StartCombo(object sender, EventArgs e)
@@ -60,9 +65,15 @@ public class ScoreManager : MonoBehaviour
 
     private void EndCombo(object sender, EventArgs e)
     {
-        totalScore += currentCombo;
         UpdateTotal();
         isScoring = false;
         currentCombo = 0;
+        currentMultiplier = 0;
+    }
+
+    private void UpdateTotal()
+    {
+        totalScore += currentCombo * currentMultiplier;
+        totalText.text = $"${totalScore.ToString(format)}";
     }
 }
