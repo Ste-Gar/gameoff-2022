@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9169450649671971683}
   - component: {fileID: 615935310522528025}
   - component: {fileID: 3762668839928799547}
+  - component: {fileID: 3467731320282115414}
   m_Layer: 0
   m_Name: Vehicle
   m_TagString: Vehicle
@@ -51,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 50000
   maxSpeed: 50
+  scoreMultiplier: 1
 --- !u!54 &8981579105276544310
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -107,6 +109,36 @@ CapsuleCollider:
   m_Height: 4.5
   m_Direction: 2
   m_Center: {x: 0, y: 0.87, z: 0}
+--- !u!114 &3467731320282115414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981579105276544309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1176167513
+      Data2: 1192164870
+      Data3: 861593783
+      Data4: 1582669810
+    Path: event:/Horn
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &8981579105766851635
 GameObject:
   m_ObjectHideFlags: 0
