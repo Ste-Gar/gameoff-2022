@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     //for smooth turning; disabled as it makes movement feel sluggish
-    //float turnSmoothVelocity;
+    [SerializeField] float turnSpeed = 10f;
     //[SerializeField] float turnSmoothTime = .1f;
 
     float groundedTimer;
@@ -51,10 +51,12 @@ public class PlayerMovement : MonoBehaviour
         if (movement.magnitude > 0 && (allowMidairControls || playerIsGrounded))
         {
             float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + mainCamTransform.eulerAngles.y;
-            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); //for smooth turning; disabled as it makes movement feel sluggish
+            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSpeed, turnSmoothTime); //for smooth turning; disabled as it makes movement feel sluggish
             //Quaternion rotation = Quaternion.Euler(0, angle, 0);
+
             Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);
-            transform.rotation = rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * turnSpeed); //better turn smoothing
+            //transform.rotation = rotation;
 
             moveDirection = rotation * Vector3.forward;
 

@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d42c389a9ae00541ac23fb7ad42a794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnSmoothVelocity: 10
   jumpBuffer: 0.2
   gravity: -6
   moveSpeed: 15
