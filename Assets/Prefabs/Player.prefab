@@ -51,8 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d42c389a9ae00541ac23fb7ad42a794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnSpeed: 10
   jumpBuffer: 0.2
-  gravity: -6
+  gravity: -3
   moveSpeed: 15
   jumpHeight: 0.1
   allowMidairControls: 1
@@ -87,11 +88,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b77f20908bf8f47b9db306c6caa7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementForceMulti: 75
+  movementForceMulti: 100
   movementForceMode: 0
-  velocityDeadzone: 50
-  groundImpactVelocityMulti: 35
-  groundImpactInterval: 0.5
+  velocityDeadzone: 30
+  groundImpactVelocityMulti: 0.5
+  groundImpactInterval: 0.3
 --- !u!114 &7880449222225031004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +112,7 @@ MonoBehaviour:
   faceDownStandAnimationClipName: Armature|Get_Up_From_Stomach
   timeToResetBones: 0.5
   collisionForceMulti: 50
-  verticalForceMulti: 100
+  verticalForceMulti: 70
   ragdollCollisionInterval: 0.3
   standUpVelocityThreshold: 0.3
   standUpDelay: 1
@@ -1323,32 +1324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ebcfd0641c9814faf830f524464a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &7972182728763437011 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d364809a7f47544b9d036f6fbc82e4d,
-    type: 3}
-  m_PrefabInstance: {fileID: 7089659935008477826}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &4149899606656316879
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7972182728763437011}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: f1f67b54febb227408c245d058ae976a, type: 3}
-  m_Controller: {fileID: 9100000, guid: b62fd535a5b8a3d40a4c819001c955ef, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8882943935245132350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7411510653661155140, guid: 6d364809a7f47544b9d036f6fbc82e4d,

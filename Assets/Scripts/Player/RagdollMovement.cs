@@ -29,12 +29,14 @@ public class RagdollMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        RagdollCollision.OnAnyRagdollGroundCollisionStay += OnGroundCollisionStay;
+        RagdollCollision.OnAnyRagdollGroundCollisionStay += OnGroundCollision;
+        RagdollCollision.OnAnyRagdollGroundCollisionEnter += OnGroundCollision;
     }
 
     private void OnDisable()
     {
-        RagdollCollision.OnAnyRagdollGroundCollisionStay -= OnGroundCollisionStay;
+        RagdollCollision.OnAnyRagdollGroundCollisionStay -= OnGroundCollision;
+        RagdollCollision.OnAnyRagdollGroundCollisionEnter -= OnGroundCollision;
     }
 
     void Start()
@@ -72,16 +74,17 @@ public class RagdollMovement : MonoBehaviour
         }
     }
 
-    private void OnGroundCollisionStay(object sender, EventArgs e)
+    private void OnGroundCollision(object sender, EventArgs e)
     {
         if (groundImpactTimer < groundImpactInterval) return;
 
         groundImpactTimer = 0;
         float velocityMultiplier = groundImpactVelocityMulti * Time.deltaTime;
-
+        
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
-            rb.velocity *= velocityMultiplier;
+            //rb.velocity *= velocityMultiplier;
+            rb.velocity *= groundImpactVelocityMulti;
         }
     }
 }

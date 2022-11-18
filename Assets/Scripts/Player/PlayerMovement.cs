@@ -11,10 +11,12 @@ public class PlayerMovement : MonoBehaviour
     CharacterController charController;
     Transform mainCamTransform;
     float verticalVelocity;
+    bool isJumping;
+    bool isFalling;
     Vector3 moveDirection;
 
     //for smooth turning; disabled as it makes movement feel sluggish
-    //float turnSmoothVelocity;
+    [SerializeField] float turnSpeed = 10f;
     //[SerializeField] float turnSmoothTime = .1f;
 
     float groundedTimer;
@@ -42,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         bool playerIsGrounded = charController.isGrounded;
+        if (playerIsGrounded)
+        {
+            isJumping = false;
+            isFalling = false;
+        }
         animator.SetBool("isGrounded", playerIsGrounded);
 
         float lateralInput = Input.GetAxisRaw(HORIZONTAL_AXIS);
@@ -51,10 +58,12 @@ public class PlayerMovement : MonoBehaviour
         if (movement.magnitude > 0 && (allowMidairControls || playerIsGrounded))
         {
             float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + mainCamTransform.eulerAngles.y;
-            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); //for smooth turning; disabled as it makes movement feel sluggish
+            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSpeed, turnSmoothTime); //for smooth turning; disabled as it makes movement feel sluggish
             //Quaternion rotation = Quaternion.Euler(0, angle, 0);
+
             Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);
-            transform.rotation = rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * turnSpeed); //better turn smoothing
+            //transform.rotation = rotation;
 
             moveDirection = rotation * Vector3.forward;
 
@@ -88,8 +97,15 @@ public class PlayerMovement : MonoBehaviour
 
             verticalVelocity += Mathf.Sqrt(jumpHeight * -2 * gravity);
 
-            animator.SetTrigger("jump");
+            //animator.SetTrigger("jump");
+            isJumping = true;
         }
+        if ((isJumping && verticalVelocity < 0) || verticalVelocity < -0.5)
+        {
+            isFalling = true;
+        }
+        animator.SetBool("isJumping", isJumping);
+        animator.SetBool("isFalling", isFalling);
 
         moveDirection.y = verticalVelocity;
         charController.Move(Time.deltaTime * moveSpeed * moveDirection);

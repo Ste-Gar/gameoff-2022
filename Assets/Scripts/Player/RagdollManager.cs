@@ -20,9 +20,9 @@ public class RagdollManager : MonoBehaviour
         resettingBones
     }
 
-    public event EventHandler onRagdollEnable;
-    public event EventHandler onRagdollDisable;
-    public event EventHandler<Collider> onRagdollThrow;
+    public event EventHandler OnRagdollEnable;
+    public event EventHandler OnRagdollDisable;
+    public event EventHandler<Collider> OnRagdollThrow;
 
     RagdollState state = RagdollState.disabled;
     private Rigidbody[] ragdollRigidbodies;
@@ -40,7 +40,7 @@ public class RagdollManager : MonoBehaviour
     CapsuleCollider playerCollider;
     CharacterController characterController;
     PlayerMovement playerMovement;
-    [SerializeField] Animator animator;
+    Animator animator;
 
     [SerializeField] string faceUpStandAnimationStateName;
     [SerializeField] string faceUpStandAnimationClipName;
@@ -68,6 +68,7 @@ public class RagdollManager : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         playerMovement = GetComponent<PlayerMovement>();
         playerCollider = GetComponent<CapsuleCollider>();
+        animator = GetComponent<Animator>();
 
         hipsBone = animator.GetBoneTransform(HumanBodyBones.Hips);
 
@@ -91,14 +92,6 @@ public class RagdollManager : MonoBehaviour
         RagdollCollision.OnAnyRagdollVehicleCollision -= OnRagdollVehicleCollision;
     }
 
-    private void OnRagdollVehicleCollision(object sender, Collision other)
-    {
-        //if (Time.time - lastCollisionTime < ragdollCollisionInterval) return;
-
-        //lastCollisionTime = Time.time;
-        ThrowRagdoll(other.collider);
-    }
-
     void Update()
     {
         switch (state)
@@ -117,6 +110,66 @@ public class RagdollManager : MonoBehaviour
         }
     }
 
+    #region collision events
+    private void OnTriggerEnter(Collider other)
+    {
+        if (Time.time - lastCollisionTime < 1)
+        {
+            lastVehicleHit = null;      //reset last vehicle hit after one second
+        }
+        if (other.CompareTag("Vehicle") && other.gameObject != lastVehicleHit)
+        {
+            lastVehicleHit = other.gameObject;
+            EnableRagdoll();
+            ThrowRagdoll(other);
+        }
+    }
+
+    private void OnRagdollVehicleCollision(object sender, Collision other)
+    {
+        //if (Time.time - lastCollisionTime < ragdollCollisionInterval) return;
+
+        //lastCollisionTime = Time.time;
+        ThrowRagdoll(other.collider);
+    }
+    #endregion
+
+    #region enable ragdoll and add forces
+    private void EnableRagdoll()
+    {
+        characterController.enabled = false;
+        playerMovement.enabled = false;
+        animator.enabled = false;
+        playerCollider.enabled = false;
+        ragdollMovement.enabled = true;
+
+        state = RagdollState.enabled;
+        OnRagdollEnable?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void ThrowRagdoll(Collider other)
+    {
+        if (Time.time - lastCollisionTime < ragdollCollisionInterval) return;
+        OnRagdollThrow?.Invoke(this, other);
+
+        lastCollisionTime = Time.time;
+
+        //Vector3 hitDirection = (other.transform.position - transform.position).normalized;
+        Vector3 vehicleVelocity = other.attachedRigidbody.velocity;
+        Vector3 playerVelocity = characterController.velocity;
+        Vector3 relativeVelocity = -vehicleVelocity + playerVelocity + Vector3.up * verticalForceMulti;
+
+        Vector3 hitForce = relativeVelocity * collisionForceMulti;
+
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = false;
+            rb.AddForce(hitForce);
+        }
+    }
+    #endregion
+
+    #region RagdollBehaviour: prepare for standing
     private void RagdollBehaviour()
     {
         if (ragdollRigidbodies[0].velocity.sqrMagnitude < standUpVelocityThreshold)
@@ -142,30 +195,13 @@ public class RagdollManager : MonoBehaviour
         }
     }
 
-    public void DisableRagdoll()
+    private bool SetFacingUp()
     {
-        animator.enabled = true;
-        //playerCollider.enabled = true;
-        ragdollMovement.enabled = false;
-
-        foreach (Rigidbody rb in ragdollRigidbodies)
+        if (Vector3.Dot(hipsBone.transform.TransformDirection(Vector3.forward), Vector3.up) < 0)
         {
-            rb.isKinematic = true;
+            return false;
         }
-
-        onRagdollDisable?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void EnableRagdoll()
-    {
-        characterController.enabled = false;
-        playerMovement.enabled = false;
-        animator.enabled = false;
-        playerCollider.enabled = false;
-        ragdollMovement.enabled = true;
-
-        state = RagdollState.enabled;
-        onRagdollEnable?.Invoke(this, EventArgs.Empty);
+        return true;
     }
 
     private void AlignRotationToHips()
@@ -201,7 +237,9 @@ public class RagdollManager : MonoBehaviour
 
         hipsBone.position = currentHipsPosition;
     }
+    #endregion
 
+    #region ResettingBonesBehaviour
     private void ResettingBonesBehaviour()
     {
         bonesResetElapsedTime += Time.deltaTime;
@@ -231,73 +269,42 @@ public class RagdollManager : MonoBehaviour
             state = RagdollState.standingUp;
             DisableRagdoll();
 
-            animator.ResetTrigger("jump");
-
             if (isFacingUp)
                 animator.Play(faceUpStandAnimationStateName);
             else
                 animator.Play(faceDownStandAnimationStateName);
         }
     }
+    #endregion
 
-    private bool SetFacingUp()
+    #region StandingUpBehaviour and disable ragdoll
+    public void DisableRagdoll()
     {
-        if(Vector3.Dot(hipsBone.transform.TransformDirection(Vector3.forward), Vector3.up) < 0)
-        {
-            return false;
-        }
-        return true;
-    }
+        animator.enabled = true;
+        //playerCollider.enabled = true;
+        ragdollMovement.enabled = false;
 
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = true;
+        }
+
+        OnRagdollDisable?.Invoke(this, EventArgs.Empty);
+    }
 
     private void StandingUpBehaviour()
     {
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(faceUpStandAnimationStateName) && !animator.GetCurrentAnimatorStateInfo(0).IsName(faceUpStandAnimationStateName))
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(faceUpStandAnimationStateName) && !animator.GetCurrentAnimatorStateInfo(0).IsName(faceDownStandAnimationStateName))
         {
             state = RagdollState.disabled;
 
             characterController.enabled = true;
             playerMovement.enabled = true;
-
         }
     }
+    #endregion
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (Time.time - lastCollisionTime < 1)
-        {
-            lastVehicleHit = null;      //reset last vehicle hit after one second
-        }
-        if (other.CompareTag("Vehicle") && other.gameObject != lastVehicleHit)
-        {
-            lastVehicleHit = other.gameObject;
-            EnableRagdoll();
-            ThrowRagdoll(other);
-        }
-    }
-
-    private void ThrowRagdoll(Collider other)
-    {
-        if (Time.time - lastCollisionTime < ragdollCollisionInterval) return;
-        onRagdollThrow?.Invoke(this, other);
-
-        lastCollisionTime = Time.time;
-
-        //Vector3 hitDirection = (other.transform.position - transform.position).normalized;
-        Vector3 vehicleVelocity = other.attachedRigidbody.velocity;
-        Vector3 playerVelocity = characterController.velocity;
-        Vector3 relativeVelocity = -vehicleVelocity + playerVelocity + Vector3.up * verticalForceMulti;
-
-        Vector3 hitForce = relativeVelocity * collisionForceMulti;
-
-
-        foreach (Rigidbody rb in ragdollRigidbodies)
-        {
-            rb.isKinematic = false;
-            rb.AddForce(hitForce);
-        }
-    }
-
+    #region BoneTransforms setup methods
     private void PopulateBoneTransforms(BoneTransform[] boneTransforms)
     {
         for (int i = 0; i < bones.Length; i++)
@@ -324,4 +331,5 @@ public class RagdollManager : MonoBehaviour
         transform.position = positionBeforeSampling;
         transform.rotation = rotationBeforeSampling;
     }
+    #endregion
 }

@@ -26,16 +26,16 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        playerRagdoll.onRagdollEnable += StartCombo;
-        playerRagdoll.onRagdollDisable += EndCombo;
-        playerRagdoll.onRagdollThrow += UpdateMultiplier;
+        playerRagdoll.OnRagdollEnable += StartCombo;
+        playerRagdoll.OnRagdollDisable += EndCombo;
+        playerRagdoll.OnRagdollThrow += UpdateMultiplier;
     }
 
     private void OnDisable()
     {
-        playerRagdoll.onRagdollEnable -= StartCombo;
-        playerRagdoll.onRagdollDisable -= EndCombo;
-        playerRagdoll.onRagdollThrow -= UpdateMultiplier;
+        playerRagdoll.OnRagdollEnable -= StartCombo;
+        playerRagdoll.OnRagdollDisable -= EndCombo;
+        playerRagdoll.OnRagdollThrow -= UpdateMultiplier;
     }
 
     private void Update()
