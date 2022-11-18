@@ -283,9 +283,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: G:/Il mio Drive/Gameoff 2022 Ambulance Chaser/Ambulance Chaser/Ambulance
-    Chaser.fspro
-  sourceBankPath: G:/Il mio Drive/Gameoff 2022 Ambulance Chaser/Ambulance Chaser/Build
+  sourceProjectPath: Fmod Project/Ambulance Chaser.fspro
+  sourceBankPath: Fmod Project/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -320,7 +319,7 @@ MonoBehaviour:
   SharedLibraryUpdateStage: 0
   SharedLibraryTimeSinceStart: 0
   CurrentVersion: 131593
-  HideSetupWizard: 0
+  HideSetupWizard: 1
   LastEventReferenceScanVersion: 131593
   Platforms:
   - {fileID: -5779809411208454345}
