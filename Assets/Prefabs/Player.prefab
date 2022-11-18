@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnSpeed: 10
   jumpBuffer: 0.2
-  gravity: -6
+  gravity: -3
   moveSpeed: 15
   jumpHeight: 0.1
   allowMidairControls: 1
@@ -88,11 +88,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b77f20908bf8f47b9db306c6caa7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementForceMulti: 75
+  movementForceMulti: 100
   movementForceMode: 0
-  velocityDeadzone: 50
-  groundImpactVelocityMulti: 35
-  groundImpactInterval: 0.5
+  velocityDeadzone: 30
+  groundImpactVelocityMulti: 0.5
+  groundImpactInterval: 0.3
 --- !u!114 &7880449222225031004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   faceDownStandAnimationClipName: Armature|Get_Up_From_Stomach
   timeToResetBones: 0.5
   collisionForceMulti: 50
-  verticalForceMulti: 100
+  verticalForceMulti: 70
   ragdollCollisionInterval: 0.3
   standUpVelocityThreshold: 0.3
   standUpDelay: 1

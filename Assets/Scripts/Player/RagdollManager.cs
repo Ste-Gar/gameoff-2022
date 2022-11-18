@@ -288,7 +288,6 @@ public class RagdollManager : MonoBehaviour
 
         Vector3 hitForce = relativeVelocity * collisionForceMulti;
 
-
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
             rb.isKinematic = false;
