@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
             //animator.SetTrigger("jump");
             isJumping = true;
         }
-        if ((isJumping && verticalVelocity < 0) || verticalVelocity < -0.5)
+        if ((isJumping && verticalVelocity < 0) || verticalVelocity < -2)
         {
             isFalling = true;
         }
