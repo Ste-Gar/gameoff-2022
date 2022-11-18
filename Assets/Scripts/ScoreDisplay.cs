@@ -31,14 +31,14 @@ public class ScoreDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        playerRagdoll.onRagdollEnable += StartFadeIn;
-        playerRagdoll.onRagdollDisable += StartFadeOut;
+        playerRagdoll.OnRagdollEnable += StartFadeIn;
+        playerRagdoll.OnRagdollDisable += StartFadeOut;
     }
 
     private void OnDisable()
     {
-        playerRagdoll.onRagdollEnable -= StartFadeIn;
-        playerRagdoll.onRagdollDisable -= StartFadeOut;
+        playerRagdoll.OnRagdollEnable -= StartFadeIn;
+        playerRagdoll.OnRagdollDisable -= StartFadeOut;
     }
 
     private void Start()
