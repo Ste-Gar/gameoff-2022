@@ -7,16 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5257317073613507196, guid: c7274a2fff8548e4c943df85c5e72bd9,
-        type: 3}
-      propertyPath: PlayEvent
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5257317073613507196, guid: c7274a2fff8548e4c943df85c5e72bd9,
-        type: 3}
-      propertyPath: StopEvent
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6808284183827455787, guid: c7274a2fff8548e4c943df85c5e72bd9,
         type: 3}
       propertyPath: scoreMultiplier
