@@ -5,47 +5,40 @@ using FMODUnity;
 
 
 [RequireComponent(typeof(Rigidbody))]
-public class Vehicle : MonoBehaviour
+public class VehicleSound : MonoBehaviour
 {
-    Rigidbody rb;
-    [SerializeField] float speed = 50;
-    [SerializeField] float maxSpeed = 50;
-    [SerializeField] float scoreMultiplier = 1;
-    public float ScoreMultiplier { get { return scoreMultiplier; } }
-
-    public float m_MaxDistance;
+    [SerializeField] float m_MaxDistance = 50f;
     bool m_HitDetect;
     RaycastHit m_Hit;
     Collider m_Collider;
     Transform player;
-    float i = 0;
 
-    private FMODUnity.StudioEventEmitter istance;
-
-    public float distance;
+    private float distance;
 
     private FMOD.Studio.EventInstance instance;
+
+    [SerializeField] float hornInterval = 10f;
+    private float hornTimer;
 
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         var target = GameObject.Find("Player");
         player = target.GetComponent<Transform>();
 
-        m_MaxDistance = 50.0f;
         m_Collider = GetComponent<Collider>();
+    }
 
-        istance = GetComponent<StudioEventEmitter>();
-
-
+    private void Start()
+    {
+        hornTimer = hornInterval;
     }
 
     private void FixedUpdate()
     {
-        if (rb.velocity.magnitude < maxSpeed)
-            rb.AddRelativeForce(Vector3.forward * speed);
-
+        hornTimer += Time.fixedDeltaTime;
+        if (hornTimer < hornInterval) return;
+        
         distance = Vector3.Distance(transform.position, player.transform.position);
 
         m_HitDetect = Physics.BoxCast(m_Collider.bounds.center, transform.localScale, transform.forward, out m_Hit, transform.rotation, m_MaxDistance);
@@ -57,30 +50,17 @@ public class Vehicle : MonoBehaviour
             if (distance < 20)
             {
 
-                if (i == 0)
-                {
-                    instance = FMODUnity.RuntimeManager.CreateInstance("event:/Horn");
-                    instance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-                    instance.start();
-                    i++;
-                }
-                else
-                    StartCoroutine(Wait());
+                instance = FMODUnity.RuntimeManager.CreateInstance("event:/Horn");
+                instance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+                instance.start();
+
+                hornTimer = 0;
+
             }
 
-
-
-            Debug.Log("Hit : " + m_Hit.collider.name + " " + distance + " " + i);
+            //Debug.Log("Hit : " + m_Hit.collider.name + " " + distance + " " + i);
         }
 
-
-    }
-
-    IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(10);
-        Debug.Log("waitisover");
-        i = 0;
     }
 
     void OnDrawGizmos()
