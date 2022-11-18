@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     CharacterController charController;
     Transform mainCamTransform;
     float verticalVelocity;
+    bool isJumping;
+    bool isFalling;
     Vector3 moveDirection;
 
     //for smooth turning; disabled as it makes movement feel sluggish
@@ -42,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         bool playerIsGrounded = charController.isGrounded;
+        if (playerIsGrounded)
+        {
+            isJumping = false;
+            isFalling = false;
+        }
         animator.SetBool("isGrounded", playerIsGrounded);
 
         float lateralInput = Input.GetAxisRaw(HORIZONTAL_AXIS);
@@ -90,8 +97,15 @@ public class PlayerMovement : MonoBehaviour
 
             verticalVelocity += Mathf.Sqrt(jumpHeight * -2 * gravity);
 
-            animator.SetTrigger("jump");
+            //animator.SetTrigger("jump");
+            isJumping = true;
         }
+        if ((isJumping && verticalVelocity < 0) || verticalVelocity < -0.5)
+        {
+            isFalling = true;
+        }
+        animator.SetBool("isJumping", isJumping);
+        animator.SetBool("isFalling", isFalling);
 
         moveDirection.y = verticalVelocity;
         charController.Move(Time.deltaTime * moveSpeed * moveDirection);

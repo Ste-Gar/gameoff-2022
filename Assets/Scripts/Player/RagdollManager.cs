@@ -231,8 +231,6 @@ public class RagdollManager : MonoBehaviour
             state = RagdollState.standingUp;
             DisableRagdoll();
 
-            animator.ResetTrigger("jump");
-
             if (isFacingUp)
                 animator.Play(faceUpStandAnimationStateName);
             else
