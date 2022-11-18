@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b50ca2d3-8c73-4240-90e3-cd4ef67d4fd3}">
+		<property name="assetPath">
+			<value>Horn S 300ms - 10.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.47020408163265304</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c16e8e33-a3fb-4ec8-a28a-df712e26743e}</destination>
+		</relationship>
+	</object>
+</objects>
