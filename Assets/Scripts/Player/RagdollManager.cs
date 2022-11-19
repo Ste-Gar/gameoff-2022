@@ -226,7 +226,7 @@ public class RagdollManager : MonoBehaviour
         Vector3 currentHipsPosition = hipsBone.position;
         transform.position = hipsBone.position;
 
-        Vector3 positionOffset = standFaceUpBoneTransforms[0].position;
+        Vector3 positionOffset = isFacingUp ? standFaceUpBoneTransforms[0].position : standFaceDownBoneTransforms[0].position;
         positionOffset.y = 0;
         positionOffset = transform.rotation * positionOffset;
         transform.position -= positionOffset;
