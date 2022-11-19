@@ -21,12 +21,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         timer = FindObjectOfType<Timer>();
-        timer.onTimeOut += EndGame;
+        timer.OnTimeOut += EndGame;
     }
 
     private void OnDestroy()
     {
-        timer.onTimeOut -= EndGame;
+        timer.OnTimeOut -= EndGame;
     }
 
     private void EndGame(object sender, EventArgs e)

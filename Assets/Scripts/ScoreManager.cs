@@ -16,7 +16,8 @@ public class ScoreManager : MonoBehaviour
 
     private RagdollManager playerRagdoll;
 
-    private bool isScoring;
+    private bool isComboRunning;
+    public bool IsComboRunning { get { return isComboRunning; } }
     readonly string format = "###,###,###,###.##";
 
     private void Awake()
@@ -40,7 +41,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
-        if (isScoring)
+        if (isComboRunning)
         {
             UpdateCombo();
         }
@@ -60,13 +61,13 @@ public class ScoreManager : MonoBehaviour
 
     private void StartCombo(object sender, EventArgs e)
     {
-        isScoring = true;
+        isComboRunning = true;
     }
 
     private void EndCombo(object sender, EventArgs e)
     {
         UpdateTotal();
-        isScoring = false;
+        isComboRunning = false;
         currentCombo = 0;
         currentMultiplier = 0;
     }
