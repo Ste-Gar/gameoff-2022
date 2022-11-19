@@ -6,14 +6,18 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public event EventHandler onTimeOut;
+    public event EventHandler OnTimeOut;
 
     [SerializeField] Image timerImage;
     [SerializeField] float gameDuration = 180f;
     float elapsedTime;
 
-    private void OnEnable()
+    ScoreManager scoreManager;
+
+    private void Start()
     {
+        scoreManager = FindObjectOfType<ScoreManager>();
+
         elapsedTime = 0;
     }
 
@@ -22,9 +26,9 @@ public class Timer : MonoBehaviour
         elapsedTime += Time.deltaTime;
         UpdateTimerVisual();
 
-        if(elapsedTime >= gameDuration)
+        if(elapsedTime >= gameDuration && !scoreManager.IsComboRunning)
         {
-            onTimeOut?.Invoke(this, EventArgs.Empty);
+            OnTimeOut?.Invoke(this, EventArgs.Empty);
         }
     }
 
