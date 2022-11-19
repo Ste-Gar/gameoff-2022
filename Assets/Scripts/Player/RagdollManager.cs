@@ -139,9 +139,10 @@ public class RagdollManager : MonoBehaviour
     {
         characterController.enabled = false;
         playerMovement.enabled = false;
-        animator.enabled = false;
         playerCollider.enabled = false;
         ragdollMovement.enabled = true;
+        //ResetAnimatorParameters();
+        animator.enabled = false;
 
         state = RagdollState.enabled;
         OnRagdollEnable?.Invoke(this, EventArgs.Empty);
@@ -281,7 +282,6 @@ public class RagdollManager : MonoBehaviour
     public void DisableRagdoll()
     {
         animator.enabled = true;
-        //playerCollider.enabled = true;
         ragdollMovement.enabled = false;
 
         foreach (Rigidbody rb in ragdollRigidbodies)

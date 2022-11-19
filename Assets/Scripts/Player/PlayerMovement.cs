@@ -110,4 +110,22 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.y = verticalVelocity;
         charController.Move(Time.deltaTime * moveSpeed * moveDirection);
     }
+
+    private void OnDisable()
+    {
+        ResetAnimatorParameters();
+    }
+
+    private void ResetAnimatorParameters()
+    {
+        foreach (var param in animator.parameters)
+        {
+            if (param.type != AnimatorControllerParameterType.Bool) continue;
+            animator.SetBool(param.name, false);
+        }
+        //        animator.Rebind();
+        //        animator.Update(0f);
+        isJumping = false;
+        isFalling = false;
+    }
 }
