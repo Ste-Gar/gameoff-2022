@@ -127,5 +127,6 @@ public class PlayerMovement : MonoBehaviour
         //        animator.Update(0f);
         isJumping = false;
         isFalling = false;
+        verticalVelocity = 0;
     }
 }
