@@ -1,3 +1,5 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +16,12 @@ public class PlayerMovement : MonoBehaviour
     bool isJumping;
     bool isFalling;
     Vector3 moveDirection;
+
+    Vector3 initialPosition;
+    Quaternion initialRotation;
+    CinemachineFreeLook freeLookCam;
+    Vector3 initialCamPosition;
+    Quaternion initialCamRotation;
 
     //for smooth turning; disabled as it makes movement feel sluggish
     [SerializeField] float turnSpeed = 10f;
@@ -34,11 +42,25 @@ public class PlayerMovement : MonoBehaviour
     {
         charController = GetComponent<CharacterController>();
         mainCamTransform = Camera.main.transform;
+
+        freeLookCam = FindObjectOfType<CinemachineFreeLook>();
+
+        GameManager.OnGameReset += ResetPlayer;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameReset -= ResetPlayer;
     }
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
+        initialCamPosition = freeLookCam.transform.position;
+        initialCamRotation = freeLookCam.transform.rotation;
     }
 
     private void Update()
@@ -128,5 +150,15 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false;
         isFalling = false;
         verticalVelocity = 0;
+    }
+
+    private void ResetPlayer(object sender, EventArgs e)
+    {
+        ResetAnimatorParameters();
+        charController.enabled = false;
+        transform.SetPositionAndRotation(initialPosition, initialRotation);
+        charController.enabled = true;
+
+        freeLookCam.ForceCameraPosition(initialCamPosition, initialCamRotation);
     }
 }

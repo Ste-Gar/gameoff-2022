@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
         End
     }
 
+    public static event EventHandler OnGameReset;
+
     public static GameState gameState;
 
     private Timer timer;
@@ -21,16 +23,28 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         timer = FindObjectOfType<Timer>();
-        timer.OnTimeOut += EndGame;
+        timer.OnTimeOut += ResetGame;
     }
 
     private void OnDestroy()
     {
-        timer.OnTimeOut -= EndGame;
+        timer.OnTimeOut -= ResetGame;
     }
 
-    private void EndGame(object sender, EventArgs e)
+    private void ResetGame(object sender, EventArgs e)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameState = GameState.Playing;
+        OnGameReset?.Invoke(this, EventArgs.Empty);
+    }
+
+    //private void EndGame(object sender, EventArgs e)
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    //}
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+            OnGameReset.Invoke(this, EventArgs.Empty);
     }
 }

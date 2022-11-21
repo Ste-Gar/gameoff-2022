@@ -30,6 +30,7 @@ public class ScoreManager : MonoBehaviour
         playerRagdoll.OnRagdollEnable += StartCombo;
         playerRagdoll.OnRagdollDisable += EndCombo;
         playerRagdoll.OnRagdollThrow += UpdateMultiplier;
+        GameManager.OnGameReset += ResetScore;
     }
 
     private void OnDisable()
@@ -37,6 +38,7 @@ public class ScoreManager : MonoBehaviour
         playerRagdoll.OnRagdollEnable -= StartCombo;
         playerRagdoll.OnRagdollDisable -= EndCombo;
         playerRagdoll.OnRagdollThrow -= UpdateMultiplier;
+        GameManager.OnGameReset -= ResetScore;
     }
 
     private void Update()
@@ -76,5 +78,12 @@ public class ScoreManager : MonoBehaviour
     {
         totalScore += currentCombo * currentMultiplier;
         totalText.text = $"${totalScore.ToString(format)}";
+    }
+
+    private void ResetScore(object sender, EventArgs e)
+    {
+        EndCombo(sender, e);
+        totalScore = 0;
+        totalText.text = "$ 0";
     }
 }
