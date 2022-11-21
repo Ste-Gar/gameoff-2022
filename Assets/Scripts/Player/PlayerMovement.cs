@@ -155,10 +155,16 @@ public class PlayerMovement : MonoBehaviour
     private void ResetPlayer(object sender, EventArgs e)
     {
         ResetAnimatorParameters();
-        charController.enabled = false;
-        transform.SetPositionAndRotation(initialPosition, initialRotation);
-        charController.enabled = true;
+        if (initialPosition != Vector3.zero)
+        {
+            charController.enabled = false;
+            transform.SetPositionAndRotation(initialPosition, initialRotation);
+            charController.enabled = true;
+        }
 
-        freeLookCam.ForceCameraPosition(initialCamPosition, initialCamRotation);
+        if (initialCamPosition != Vector3.zero)
+        {
+            freeLookCam.ForceCameraPosition(initialCamPosition, initialCamRotation);
+        }
     }
 }

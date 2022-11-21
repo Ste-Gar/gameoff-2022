@@ -23,15 +23,21 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         timer = FindObjectOfType<Timer>();
-        timer.OnTimeOut += ResetGame;
+        timer.OnTimeOut += EndGame;
     }
 
     private void OnDestroy()
     {
-        timer.OnTimeOut -= ResetGame;
+        timer.OnTimeOut -= EndGame;
     }
 
-    private void ResetGame(object sender, EventArgs e)
+    private void EndGame(object sender, EventArgs e)
+    {
+        if (gameState == GameState.Playing)
+            ResetGame();
+    }
+
+    public void ResetGame()
     {
         gameState = GameState.Playing;
         OnGameReset?.Invoke(this, EventArgs.Empty);
