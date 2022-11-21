@@ -12,10 +12,12 @@ public class VehicleSound : MonoBehaviour
     RaycastHit m_Hit;
     Collider m_Collider;
     Transform player;
+    Collider p_Collider;
 
     private float distance;
 
     private FMOD.Studio.EventInstance instance;
+    private FMODUnity.StudioEventEmitter m_music;
 
     [SerializeField] float hornInterval = 10f;
     private float hornTimer;
@@ -26,8 +28,10 @@ public class VehicleSound : MonoBehaviour
         var target = GameObject.Find("Player");
         player = target.GetComponent<Transform>();
         m_Collider = GetComponent<Collider>();
-        
-    }
+        p_Collider = target.GetComponent<Collider>();
+        var target2 = GameObject.Find("BackgroundMusic");
+        m_music = target2.GetComponent<FMODUnity.StudioEventEmitter>();
+        }
 
     private void Start()
     {
@@ -43,8 +47,7 @@ public class VehicleSound : MonoBehaviour
 
         m_HitDetect = Physics.BoxCast(m_Collider.bounds.center, transform.localScale, transform.forward, out m_Hit, transform.rotation, m_MaxDistance);
 
-        if (m_Hit.collider == null) return;
-        if (m_Hit.collider.CompareTag("Player"))
+        if (m_Hit.transform == player)
         {
 
 
@@ -61,6 +64,14 @@ public class VehicleSound : MonoBehaviour
 
            // Debug.Log("Hit : " + m_Hit.collider.name + " " + distance);
         }
+
+        if (!p_Collider.enabled)
+            m_music.SetParameter("Flight", 1);
+        else
+            m_music.SetParameter("Flight", 0);
+
+
+            
 
     }
 
