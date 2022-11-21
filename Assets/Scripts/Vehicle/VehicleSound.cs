@@ -42,8 +42,9 @@ public class VehicleSound : MonoBehaviour
         distance = Vector3.Distance(transform.position, player.transform.position);
 
         m_HitDetect = Physics.BoxCast(m_Collider.bounds.center, transform.localScale, transform.forward, out m_Hit, transform.rotation, m_MaxDistance);
-        
-        if (m_Hit.transform == player)
+
+        if (m_Hit.collider == null) return;
+        if (m_Hit.collider.CompareTag("Player"))
         {
 
 
