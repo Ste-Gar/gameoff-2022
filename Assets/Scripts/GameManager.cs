@@ -42,9 +42,9 @@ public class GameManager : MonoBehaviour
     //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     //}
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-            OnGameReset.Invoke(this, EventArgs.Empty);
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.X))
+    //        OnGameReset.Invoke(this, EventArgs.Empty);
+    //}
 }
