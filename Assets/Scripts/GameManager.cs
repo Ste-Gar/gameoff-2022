@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public static GameState gameState;
 
     private Timer timer;
+    [SerializeField] GameObject gameUI;
 
     private void Awake()
     {
@@ -29,6 +30,19 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         timer.OnTimeOut -= EndGame;
+    }
+
+    public void StartGame()
+    {
+        StartCoroutine(StartGameDelay());
+    }
+
+    private IEnumerator StartGameDelay()
+    {
+        yield return new WaitForSeconds(2);
+        timer.enabled = true;
+        gameUI.SetActive(true);
+        ResetGame();
     }
 
     private void EndGame(object sender, EventArgs e)
