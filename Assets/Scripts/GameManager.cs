@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,11 +19,18 @@ public class GameManager : MonoBehaviour
 
     public static GameState gameState;
 
+    private float cameraBlendDuration;
+
+    PlayerMovement playerMovement;
+
     private Timer timer;
     [SerializeField] GameObject gameUI;
+    [SerializeField] GameObject gameOverUI;
 
     private void Awake()
     {
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        cameraBlendDuration = Camera.main.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
         timer = FindObjectOfType<Timer>();
         timer.OnTimeOut += EndGame;
     }
@@ -39,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartGameDelay()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(cameraBlendDuration);
         timer.enabled = true;
         gameUI.SetActive(true);
         ResetGame();
@@ -47,8 +55,10 @@ public class GameManager : MonoBehaviour
 
     private void EndGame(object sender, EventArgs e)
     {
-        if (gameState == GameState.Playing)
-            ResetGame();
+        gameState = GameState.End;
+        gameOverUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        playerMovement.enabled = false;
     }
 
     public void ResetGame()
@@ -56,15 +66,4 @@ public class GameManager : MonoBehaviour
         gameState = GameState.Playing;
         OnGameReset?.Invoke(this, EventArgs.Empty);
     }
-
-    //private void EndGame(object sender, EventArgs e)
-    //{
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    //}
-
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.X))
-    //        OnGameReset.Invoke(this, EventArgs.Empty);
-    //}
 }

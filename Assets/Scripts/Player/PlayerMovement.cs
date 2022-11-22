@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         initialPosition = transform.position;
         initialRotation = transform.rotation;
@@ -166,5 +166,7 @@ public class PlayerMovement : MonoBehaviour
         {
             freeLookCam.ForceCameraPosition(initialCamPosition, initialCamRotation);
         }
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

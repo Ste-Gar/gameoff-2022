@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 7353731250344026710}
   - component: {fileID: 7353731250344026709}
   m_Layer: 5
-  m_Name: MainMenuCanvas
+  m_Name: MenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 7353731250345827668}
   - component: {fileID: 7353731250345827667}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: MainMenuPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -737,7 +737,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 7353731250344026708}
+      - m_Target: {fileID: 7353731250345827665}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6

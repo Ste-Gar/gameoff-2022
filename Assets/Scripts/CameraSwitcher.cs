@@ -3,15 +3,16 @@ using Cinemachine;
 
 public class CameraSwitcher : MonoBehaviour
 {
-    CinemachineVirtualCamera menuCam;
+    CinemachineVirtualCamera cam;
 
     private void Awake()
     {
-        menuCam = GetComponent<CinemachineVirtualCamera>();
+        cam = GetComponent<CinemachineVirtualCamera>();
     }
 
     public void SwitchCamera()
     {
-        menuCam.Priority = 1;
+        //cam.Priority = 1;
+        cam.enabled = false;
     }
 }
