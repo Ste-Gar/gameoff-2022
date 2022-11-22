@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerImage: {fileID: 0}
-  gameDuration: 180
+  gameDuration: 120
 --- !u!114 &3272142963843653766
 MonoBehaviour:
   m_ObjectHideFlags: 0
