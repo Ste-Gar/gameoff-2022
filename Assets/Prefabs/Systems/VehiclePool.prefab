@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3272142963843653765
+--- !u!1 &820164384801395599
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3272142963843653764}
-  - component: {fileID: 3272142963843653767}
-  - component: {fileID: 3272142963843653766}
+  - component: {fileID: 820164384801395593}
+  - component: {fileID: 820164384801395592}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: VehiclePool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3272142963843653764
+--- !u!4 &820164384801395593
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3272142963843653765}
+  m_GameObject: {fileID: 820164384801395599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,29 +32,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3272142963843653767
+--- !u!114 &820164384801395592
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3272142963843653765}
+  m_GameObject: {fileID: 820164384801395599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e69abfe13130494b8b54821e38814a9, type: 3}
+  m_Script: {fileID: 11500000, guid: c1519e97c6a5d204abcc87449ad4d31e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerImage: {fileID: 0}
-  gameDuration: 120
---- !u!114 &3272142963843653766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3272142963843653765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba965c557e740164e96d777d10e1d4e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  pools:
+  - prefab: {fileID: 8981579105276544309, guid: c7274a2fff8548e4c943df85c5e72bd9,
+      type: 3}
+    amount: 50
+  - prefab: {fileID: 4656260190905085618, guid: fbe29d5828d27ed4686aff2945999e5a,
+      type: 3}
+    amount: 5

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,12 +15,22 @@ public class GameManager : MonoBehaviour
         End
     }
 
+    public static event EventHandler OnGameReset;
+
     public static GameState gameState;
 
+    private float cameraBlendDuration;
+
+    PlayerMovement playerMovement;
+
     private Timer timer;
+    [SerializeField] GameObject gameUI;
+    [SerializeField] GameObject gameOverUI;
 
     private void Awake()
     {
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        cameraBlendDuration = Camera.main.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
         timer = FindObjectOfType<Timer>();
         timer.OnTimeOut += EndGame;
     }
@@ -29,8 +40,30 @@ public class GameManager : MonoBehaviour
         timer.OnTimeOut -= EndGame;
     }
 
+    public void StartGame()
+    {
+        StartCoroutine(StartGameDelay());
+    }
+
+    private IEnumerator StartGameDelay()
+    {
+        yield return new WaitForSeconds(cameraBlendDuration);
+        timer.enabled = true;
+        gameUI.SetActive(true);
+        ResetGame();
+    }
+
     private void EndGame(object sender, EventArgs e)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameState = GameState.End;
+        gameOverUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        playerMovement.enabled = false;
+    }
+
+    public void ResetGame()
+    {
+        gameState = GameState.Playing;
+        OnGameReset?.Invoke(this, EventArgs.Empty);
     }
 }

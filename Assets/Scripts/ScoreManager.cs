@@ -9,6 +9,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI multiplierText;
     [SerializeField] TextMeshProUGUI totalText;
+    [SerializeField] TextMeshProUGUI finalScoreText;
 
     float currentCombo;
     float currentMultiplier;
@@ -30,6 +31,7 @@ public class ScoreManager : MonoBehaviour
         playerRagdoll.OnRagdollEnable += StartCombo;
         playerRagdoll.OnRagdollDisable += EndCombo;
         playerRagdoll.OnRagdollThrow += UpdateMultiplier;
+        GameManager.OnGameReset += ResetScore;
     }
 
     private void OnDisable()
@@ -37,6 +39,7 @@ public class ScoreManager : MonoBehaviour
         playerRagdoll.OnRagdollEnable -= StartCombo;
         playerRagdoll.OnRagdollDisable -= EndCombo;
         playerRagdoll.OnRagdollThrow -= UpdateMultiplier;
+        GameManager.OnGameReset -= ResetScore;
     }
 
     private void Update()
@@ -74,7 +77,23 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateTotal()
     {
+        if (GameManager.gameState != GameManager.GameState.Playing) return;
+
         totalScore += currentCombo * currentMultiplier;
         totalText.text = $"${totalScore.ToString(format)}";
+    }
+
+    private void ResetScore(object sender, EventArgs e)
+    {
+        EndCombo(sender, e);
+        totalScore = 0;
+        totalText.text = "$ 0";
+    }
+
+    internal void UpdateFinalScore()
+    {
+        if (GameManager.gameState != GameManager.GameState.Playing) return;
+
+        finalScoreText.text = $"${totalScore.ToString(format)}";
     }
 }

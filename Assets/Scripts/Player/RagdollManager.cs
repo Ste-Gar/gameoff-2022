@@ -62,6 +62,7 @@ public class RagdollManager : MonoBehaviour
     private void Awake()
     {
         RagdollCollision.OnAnyRagdollVehicleCollision += OnRagdollVehicleCollision;
+        GameManager.OnGameReset += ResetRagdoll;
 
         ragdollMovement = GetComponent<RagdollMovement>();
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
@@ -90,6 +91,7 @@ public class RagdollManager : MonoBehaviour
     private void OnDestroy()
     {
         RagdollCollision.OnAnyRagdollVehicleCollision -= OnRagdollVehicleCollision;
+        GameManager.OnGameReset -= ResetRagdoll;
     }
 
     void Update()
@@ -332,4 +334,13 @@ public class RagdollManager : MonoBehaviour
         transform.rotation = rotationBeforeSampling;
     }
     #endregion
+
+    private void ResetRagdoll(object sender, EventArgs e)
+    {
+        playerMovement.enabled = true;
+        characterController.enabled = true;
+        playerCollider.enabled = true;
+        animator.enabled = true;
+        ragdollMovement.enabled = false;
+    }
 }

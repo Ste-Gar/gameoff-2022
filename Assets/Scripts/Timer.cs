@@ -16,9 +16,16 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
+        GameManager.OnGameReset += ResetTimer;
+
         scoreManager = FindObjectOfType<ScoreManager>();
 
         elapsedTime = 0;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameReset -= ResetTimer;
     }
 
     private void Update()
@@ -28,6 +35,7 @@ public class Timer : MonoBehaviour
 
         if(elapsedTime >= gameDuration && !scoreManager.IsComboRunning)
         {
+            scoreManager.UpdateFinalScore();
             OnTimeOut?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -35,5 +43,10 @@ public class Timer : MonoBehaviour
     private void UpdateTimerVisual()
     {
         timerImage.fillAmount = 1 - (elapsedTime / gameDuration);
+    }
+
+    private void ResetTimer(object sender, EventArgs e)
+    {
+        elapsedTime = 0;
     }
 }

@@ -438,6 +438,7 @@ InitTestScene*.unity
 
 # Ignore the Cache folder since it is updated locally.
 /[Aa]ssets/Plugins/FMOD/Cache/*
+Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
 
 # Ignore bank files in the StreamingAssets folder.
 /[Aa]ssets/StreamingAssets/**/*.bank
@@ -446,4 +447,3 @@ InitTestScene*.unity
 
 # Log files can be ignored.
 fmod_editor.log
-
