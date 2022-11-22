@@ -35,6 +35,7 @@ public class Timer : MonoBehaviour
 
         if(elapsedTime >= gameDuration && !scoreManager.IsComboRunning)
         {
+            scoreManager.UpdateFinalScore();
             OnTimeOut?.Invoke(this, EventArgs.Empty);
         }
     }
