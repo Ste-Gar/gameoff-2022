@@ -28,6 +28,58 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 12000
+--- !u!114 &-6622043408100105827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Money
+  m_EditorClassIdentifier: 
+  Path: event:/Money
+  Guid:
+    Data1: -1202918609
+    Data2: 1254832158
+    Data3: 1052477594
+    Data4: -1660617131
+  Banks:
+  - {fileID: 643396520237144473}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -2091894573336615440}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 21000
+--- !u!114 &-2091894573336615440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Money/Money End
+  m_EditorClassIdentifier: 
+  Name: Money End
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3812828385
+    data2: 1246498560
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-445944439048571784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,12 +125,15 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: -7677387073809724932}
   - {fileID: -445944439048571784}
-  EditorParameters: []
+  - {fileID: 8036978670762507711}
+  - {fileID: -6622043408100105827}
+  EditorParameters:
+  - {fileID: 7002975128307903240}
   MasterBanks:
   - {fileID: 643396520237144473}
   StringsBanks:
   - {fileID: 3091136085273320114}
-  cacheTime: 638046331453208547
+  cacheTime: 638047560809809214
   cacheVersion: 131593
 --- !u!114 &643396520237144473
 MonoBehaviour:
@@ -95,10 +150,10 @@ MonoBehaviour:
   Path: Fmod Project/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638046331453198579
+  lastModified: 638047560809799456
   FileSizes:
   - Name: Desktop
-    Value: 5581184
+    Value: 5814592
   Exists: 1
 --- !u!114 &3091136085273320114
 MonoBehaviour:
@@ -115,10 +170,10 @@ MonoBehaviour:
   Path: Fmod Project/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638046331453208547
+  lastModified: 638047560809809214
   FileSizes:
   - Name: Desktop
-    Value: 850
+    Value: 1028
   Exists: 1
 --- !u!114 &5975863826096859065
 MonoBehaviour:
@@ -141,6 +196,57 @@ MonoBehaviour:
     data1: 630892497
     data2: 1109335537
   Type: 1
-  IsGlobal: 0
+  IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &7002975128307903240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Flight
+  m_EditorClassIdentifier: 
+  Name: Flight
+  StudioPath: parameter:/Flight
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 630892497
+    data2: 1109335537
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &8036978670762507711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambience 2
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience 2
+  Guid:
+    Data1: -1669614882
+    Data2: 1232188440
+    Data3: 960821163
+    Data4: 1576765655
+  Banks:
+  - {fileID: 643396520237144473}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 1400
+  Length: 0

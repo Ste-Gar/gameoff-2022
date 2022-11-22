@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{f87ec50a-71b9-4114-8a2d-50bbc5324339}">
+		<property name="assetPath">
+			<value>Cash Register 1.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.7186249999999998</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c16e8e33-a3fb-4ec8-a28a-df712e26743e}</destination>
+		</relationship>
+	</object>
+</objects>
