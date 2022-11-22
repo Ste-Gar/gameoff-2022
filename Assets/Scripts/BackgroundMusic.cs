@@ -6,11 +6,14 @@ using UnityEngine;
 
 public class BackgroundMusic : MonoBehaviour
 {
-    private StudioEventEmitter m_music;
+   // private StudioEventEmitter m_music;
     private RagdollManager playerRagdoll;
+    FMOD.Studio.EventInstance music;
+    FMOD.Studio.EventInstance money;
 
     private void Awake()
     {
+
         playerRagdoll = FindObjectOfType<RagdollManager>();
 
         playerRagdoll.OnRagdollEnable += EnableComboMusic;
@@ -25,17 +28,23 @@ public class BackgroundMusic : MonoBehaviour
 
     void Start()
     {
-        var target = GameObject.Find("BackgroundMusic");
-        m_music = target.GetComponent<StudioEventEmitter>();
+        music = FMODUnity.RuntimeManager.CreateInstance("event:/Music");
+        money = FMODUnity.RuntimeManager.CreateInstance("event:/Money");
+        music.start();
     }
 
     private void EnableComboMusic(object sender, EventArgs e)
     {
-        m_music.SetParameter("Flight", 1);
+        money.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Flight", 1);
+        money.start();
+        money.setParameterByName("Money End", 0);
     }
 
     private void DisableComboMusic(object sender, EventArgs e)
     {
-        m_music.SetParameter("Flight", 0);
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Flight", 0);
+        money.setParameterByName("Money End", 1);
+
     }
 }
