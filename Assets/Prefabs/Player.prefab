@@ -46,7 +46,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4474927065715391014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d42c389a9ae00541ac23fb7ad42a794, type: 3}
   m_Name: 
@@ -67,7 +67,7 @@ CharacterController:
   m_GameObject: {fileID: 4474927065715391014}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 1.75
   m_Radius: 0.35
@@ -105,7 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e2957f1612ae06419a52180a0514cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 978339598}
   faceUpStandAnimationStateName: Get_Up_From_Back
   faceUpStandAnimationClipName: Armature|Get_Up_From_Back
   faceDownStandAnimationStateName: Get_Up_From_Stomach
@@ -123,7 +122,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4474927065715391014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70b99fd12d87e4b4cac5395293738e03, type: 3}
   m_Name: 
@@ -137,7 +136,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4474927065715391014}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 1.8433611
   m_Direction: 1

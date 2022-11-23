@@ -62,6 +62,7 @@ public class RagdollManager : MonoBehaviour
     private void Awake()
     {
         RagdollCollision.OnAnyRagdollVehicleCollision += OnRagdollVehicleCollision;
+        GameManager.OnGameReset += ResetRagdoll;
 
         ragdollMovement = GetComponent<RagdollMovement>();
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
@@ -90,6 +91,7 @@ public class RagdollManager : MonoBehaviour
     private void OnDestroy()
     {
         RagdollCollision.OnAnyRagdollVehicleCollision -= OnRagdollVehicleCollision;
+        GameManager.OnGameReset -= ResetRagdoll;
     }
 
     void Update()
@@ -139,9 +141,10 @@ public class RagdollManager : MonoBehaviour
     {
         characterController.enabled = false;
         playerMovement.enabled = false;
-        animator.enabled = false;
         playerCollider.enabled = false;
         ragdollMovement.enabled = true;
+        //ResetAnimatorParameters();
+        animator.enabled = false;
 
         state = RagdollState.enabled;
         OnRagdollEnable?.Invoke(this, EventArgs.Empty);
@@ -225,7 +228,7 @@ public class RagdollManager : MonoBehaviour
         Vector3 currentHipsPosition = hipsBone.position;
         transform.position = hipsBone.position;
 
-        Vector3 positionOffset = standFaceUpBoneTransforms[0].position;
+        Vector3 positionOffset = isFacingUp ? standFaceUpBoneTransforms[0].position : standFaceDownBoneTransforms[0].position;
         positionOffset.y = 0;
         positionOffset = transform.rotation * positionOffset;
         transform.position -= positionOffset;
@@ -281,7 +284,6 @@ public class RagdollManager : MonoBehaviour
     public void DisableRagdoll()
     {
         animator.enabled = true;
-        //playerCollider.enabled = true;
         ragdollMovement.enabled = false;
 
         foreach (Rigidbody rb in ragdollRigidbodies)
@@ -332,4 +334,13 @@ public class RagdollManager : MonoBehaviour
         transform.rotation = rotationBeforeSampling;
     }
     #endregion
+
+    private void ResetRagdoll(object sender, EventArgs e)
+    {
+        playerMovement.enabled = true;
+        characterController.enabled = true;
+        playerCollider.enabled = true;
+        animator.enabled = true;
+        ragdollMovement.enabled = false;
+    }
 }
