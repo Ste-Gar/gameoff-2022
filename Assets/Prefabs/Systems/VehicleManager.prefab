@@ -243,5 +243,5 @@ MonoBehaviour:
   - {fileID: 7386786719114981488}
   - {fileID: 7386786718542727218}
   - {fileID: 7386786719235716645}
-  maxSpawnDelay: 0.5
+  maxSpawnDelay: 0.3
   spawnXOffset: 2
