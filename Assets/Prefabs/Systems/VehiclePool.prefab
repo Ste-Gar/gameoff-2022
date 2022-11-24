@@ -50,10 +50,21 @@ MonoBehaviour:
     amount: 8
   - prefab: {fileID: 4656260190905085618, guid: fbe29d5828d27ed4686aff2945999e5a,
       type: 3}
-    amount: 15
+    amount: 5
+  - prefab: {fileID: 6227194795863713728, guid: bfafa7b3dafdaed4ba9583b8e3b2fae2,
+      type: 3}
+    amount: 5
+  - prefab: {fileID: 429082283140335382, guid: f506b549d12208b4183a68f0c6baac93, type: 3}
+    amount: 5
   - prefab: {fileID: 3388064927223005461, guid: 8d99c9a47df22e744854a4ca227f5ca3,
       type: 3}
-    amount: 15
+    amount: 5
+  - prefab: {fileID: 7303314266323265708, guid: 25ac6570a98f6624cbe013e6c72a1f42,
+      type: 3}
+    amount: 5
+  - prefab: {fileID: 7991756697250235819, guid: ebfbfccc48b2fe3429e2fd4e8dd4f818,
+      type: 3}
+    amount: 5
   - prefab: {fileID: 8273963392704469094, guid: 5bd0b120169a5074d967c33badb7ad60,
       type: 3}
     amount: 15
@@ -62,4 +73,7 @@ MonoBehaviour:
     amount: 15
   - prefab: {fileID: 1885193794144671108, guid: a6f189a79ad699c4a97325f1ec202b79,
       type: 3}
-    amount: 15
+    amount: 8
+  - prefab: {fileID: 8500832168451397239, guid: d660dd2af3a85c74bb1fac6c7385067a,
+      type: 3}
+    amount: 7
