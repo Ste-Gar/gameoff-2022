@@ -20,7 +20,7 @@ PrefabInstance:
     - target: {fileID: 8981579105276544309, guid: c7274a2fff8548e4c943df85c5e72bd9,
         type: 3}
       propertyPath: m_Name
-      value: Vehicle Variant
+      value: Small_Car
       objectReference: {fileID: 0}
     - target: {fileID: 8981579105276544311, guid: c7274a2fff8548e4c943df85c5e72bd9,
         type: 3}
@@ -84,3 +84,78 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 49c8c1365cfaff848a36bd0ad8278b4e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7274a2fff8548e4c943df85c5e72bd9, type: 3}
+--- !u!4 &4656260190905085616 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8981579105276544311, guid: c7274a2fff8548e4c943df85c5e72bd9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4339958647575866247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6222393410854023250
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4656260190905085616}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 337ce21447e3d514f8a39056361a23ff,
+        type: 3}
+      propertyPath: m_Name
+      value: Small_Car
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 337ce21447e3d514f8a39056361a23ff, type: 3}
