@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4474927065715391021}
   - component: {fileID: 81866775178416282}
   - component: {fileID: 7880449222225031004}
-  - component: {fileID: 4153719515333009054}
   - component: {fileID: 4835962995912790025}
   - component: {fileID: 978339598}
   m_Layer: 0
@@ -115,18 +114,6 @@ MonoBehaviour:
   ragdollCollisionInterval: 0.3
   standUpVelocityThreshold: 0.3
   standUpDelay: 1
---- !u!114 &4153719515333009054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4474927065715391014}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70b99fd12d87e4b4cac5395293738e03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &4835962995912790025
 CapsuleCollider:
   m_ObjectHideFlags: 0
