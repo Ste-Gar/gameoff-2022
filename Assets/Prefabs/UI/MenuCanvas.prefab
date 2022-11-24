@@ -485,9 +485,7 @@ MonoBehaviour:
     <color=red>WASD / Arrows</color> - movement
 
     <color=red>Spacebar</color>
-    - jump
-
-    <color=red>R</color> - reset player'
+    - jump'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 23d54a0b79fd0d2429ade8ff31921810, type: 2}
