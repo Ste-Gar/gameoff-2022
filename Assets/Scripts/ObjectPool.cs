@@ -20,7 +20,7 @@ public class ObjectPool : MonoBehaviour
     private void Start()
     {
         //poolDictionary = new Dictionary<string, GameObject[]>();
-        
+
         foreach (Pool pool in pools)
         {
             int startingIndex = objects.Length;
@@ -39,16 +39,34 @@ public class ObjectPool : MonoBehaviour
     public void SpawnRandomFromPool(Vector3 position, Quaternion rotation)
     {
         int objectIndex = UnityEngine.Random.Range(0, objects.Length);
-        
-        if (objects[objectIndex].activeInHierarchy)
+        int startingIndex = objectIndex;
+        bool isActive = true;
+
+        while (isActive)
         {
-            SpawnRandomFromPool(position, rotation);
+            if (!objects[objectIndex].activeInHierarchy)
+            {
+                isActive = false;
+                objects[objectIndex].transform.SetPositionAndRotation(position, rotation);
+                objects[objectIndex].SetActive(true);
+            }
+            else
+            {
+                objectIndex = objectIndex < objects.Length - 1 ? objectIndex + 1 : 0;
+                
+                if (objectIndex == startingIndex) return;
+            }
         }
-        else
-        {
-            objects[objectIndex].transform.position = position;
-            objects[objectIndex].transform.rotation = rotation;
-            objects[objectIndex].SetActive(true);
-        }
+
+        //if (objects[objectIndex].activeInHierarchy)
+        //{
+        //    SpawnRandomFromPool(position, rotation);
+        //}
+        //else
+        //{
+        //    objects[objectIndex].transform.position = position;
+        //    objects[objectIndex].transform.rotation = rotation;
+        //    objects[objectIndex].SetActive(true);
+        //}
     }
 }
