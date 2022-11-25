@@ -9,8 +9,8 @@ public class Timer : MonoBehaviour
     public event EventHandler OnTimeOut;
 
     [SerializeField] Image timerImage;
-    [SerializeField] float gameDuration = 180f;
-    float elapsedTime;
+   public float gameDuration = 180f;
+    public float elapsedTime;
 
     ScoreManager scoreManager;
 
