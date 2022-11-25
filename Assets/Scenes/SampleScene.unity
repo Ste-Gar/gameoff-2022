@@ -1385,61 +1385,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[0].amount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[1].amount
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[2].amount
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[3].amount
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[4].amount
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[5].amount
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[6].amount
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[7].amount
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[8].amount
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[9].amount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 820164384801395592, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
-        type: 3}
-      propertyPath: pools.Array.data[10].amount
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 820164384801395593, guid: 7307a6e0a8b8ede44ae4375e87e73e0a,
         type: 3}
       propertyPath: m_RootOrder
@@ -1799,7 +1744,7 @@ PrefabInstance:
     - target: {fileID: 2619031071071228161, guid: 91d2b93f85185294eb229137731bad8f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1e-45
+      value: -3e-45
       objectReference: {fileID: 0}
     - target: {fileID: 2619031071071228161, guid: 91d2b93f85185294eb229137731bad8f,
         type: 3}
@@ -1909,17 +1854,17 @@ PrefabInstance:
     - target: {fileID: 2619031071443354340, guid: 91d2b93f85185294eb229137731bad8f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1784248
+      value: 0.17842482
       objectReference: {fileID: 0}
     - target: {fileID: 2619031071443354340, guid: 91d2b93f85185294eb229137731bad8f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000008465116
+      value: 0.00000000979687
       objectReference: {fileID: 0}
     - target: {fileID: 2619031071443354340, guid: 91d2b93f85185294eb229137731bad8f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000015350182
+      value: -0.0000000017765115
       objectReference: {fileID: 0}
     - target: {fileID: 2619031072074427272, guid: 91d2b93f85185294eb229137731bad8f,
         type: 3}
@@ -1969,12 +1914,12 @@ PrefabInstance:
     - target: {fileID: 2619031072504302390, guid: 91d2b93f85185294eb229137731bad8f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000008515315
+      value: -0.0000000083962615
       objectReference: {fileID: 0}
     - target: {fileID: 2619031072504302390, guid: 91d2b93f85185294eb229137731bad8f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000012265138
+      value: 0.0000000012093659
       objectReference: {fileID: 0}
     - target: {fileID: 2619031072924494991, guid: 91d2b93f85185294eb229137731bad8f,
         type: 3}
