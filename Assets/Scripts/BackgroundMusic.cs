@@ -2,14 +2,17 @@ using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+
 
 public class BackgroundMusic : MonoBehaviour
 {
-   // private StudioEventEmitter m_music;
+    // private StudioEventEmitter m_music;
     private RagdollManager playerRagdoll;
     FMOD.Studio.EventInstance music;
     FMOD.Studio.EventInstance money;
+    [SerializeField] Timer timerScript;
 
     private void Awake()
     {
@@ -32,7 +35,11 @@ public class BackgroundMusic : MonoBehaviour
         money = FMODUnity.RuntimeManager.CreateInstance("event:/Money");
         music.start();
     }
-
+    private void Update()
+    {
+        if (timerScript.elapsedTime > (timerScript.gameDuration * 0.75 ))
+            music.setParameterByName("Time", 1);
+    }
     private void EnableComboMusic(object sender, EventArgs e)
     {
         money.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
@@ -46,5 +53,16 @@ public class BackgroundMusic : MonoBehaviour
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Flight", 0);
         money.setParameterByName("Money End", 1);
 
+    }
+    public void StartMusic()
+    {
+        music.setParameterByName("Title Screen", 1);
+    }
+    public void ResetMusic()
+    {
+        music.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
+        music.setParameterByName("Time", 0);
+        music.start();
     }
 }
