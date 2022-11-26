@@ -2,6 +2,7 @@ using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,21 +13,24 @@ public class BackgroundMusic : MonoBehaviour
     private RagdollManager playerRagdoll;
     FMOD.Studio.EventInstance music;
     FMOD.Studio.EventInstance money;
-    [SerializeField] Timer timerScript;
+   private Timer timerScript;
+
 
     private void Awake()
     {
 
         playerRagdoll = FindObjectOfType<RagdollManager>();
-
+        timerScript = FindObjectOfType<Timer>();
         playerRagdoll.OnRagdollEnable += EnableComboMusic;
         playerRagdoll.OnRagdollDisable += DisableComboMusic;
+        timerScript.OnTimeOut += ScoreMusic;
     }
 
     private void OnDestroy()
     {
         playerRagdoll.OnRagdollEnable -= EnableComboMusic;
         playerRagdoll.OnRagdollDisable -= DisableComboMusic;
+        timerScript.OnTimeOut -= ScoreMusic;
     }
 
     void Start()
@@ -60,9 +64,15 @@ public class BackgroundMusic : MonoBehaviour
     }
     public void ResetMusic()
     {
+
         music.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
         music.setParameterByName("Time", 0);
         music.start();
+    }
+    private void ScoreMusic(object sender, EventArgs e)
+    {
+
+        music.setParameterByName("Time", 2);
     }
 }

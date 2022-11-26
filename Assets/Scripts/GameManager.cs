@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         ResetGame();
     }
 
-    private void EndGame(object sender, EventArgs e)
+    public void EndGame(object sender, EventArgs e)
     {
         gameState = GameState.End;
         gameOverUI.SetActive(true);
