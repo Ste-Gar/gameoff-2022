@@ -26,7 +26,7 @@ public class VehicleSound : MonoBehaviour
         var target = GameObject.Find("Player");
         player = target.GetComponent<Transform>();
 
-        m_Collider = GetComponent<Collider>();
+        m_Collider = GetComponentInChildren<Collider>();
     }
 
     private void Start()

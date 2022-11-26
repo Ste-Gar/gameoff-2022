@@ -8,8 +8,9 @@ public class VehicleDespawner : MonoBehaviour
     {
         if (other.CompareTag("Vehicle"))
         {
+            GameObject vehicleGO = other.transform.parent.gameObject;
             other.attachedRigidbody.velocity = Vector3.zero;
-            other.gameObject.SetActive(false);
+            vehicleGO.SetActive(false);
         }
     }
 }
