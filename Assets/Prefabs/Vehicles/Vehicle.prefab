@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6786669578325760020}
   - component: {fileID: 8152737868816083930}
+  - component: {fileID: 8526057449950470117}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Vehicle
@@ -39,13 +40,26 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5638288271753889963}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 82aa2e6e16895ab43ad805c73bd7859b, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: e94f9f188506301479cec168d9f9a18d, type: 3}
+--- !u!65 &8526057449950470117
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5638288271753889963}
+  m_Material: {fileID: 13400000, guid: 82aa2e6e16895ab43ad805c73bd7859b, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9905972, y: 1.1873109, z: 1.0253371}
+  m_Center: {x: 0, y: 0.608004, z: -0.48681584}
 --- !u!1 &8981579105276544309
 GameObject:
   m_ObjectHideFlags: 0

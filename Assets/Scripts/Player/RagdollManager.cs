@@ -158,11 +158,13 @@ public class RagdollManager : MonoBehaviour
         lastCollisionTime = Time.time;
 
         //Vector3 hitDirection = (other.transform.position - transform.position).normalized;
-        Vector3 vehicleVelocity = other.attachedRigidbody.velocity;
-        Vector3 playerVelocity = characterController.velocity;
-        Vector3 relativeVelocity = -vehicleVelocity + playerVelocity + Vector3.up * verticalForceMulti;
 
-        Vector3 hitForce = relativeVelocity * collisionForceMulti;
+        //Vector3 vehicleVelocity = other.attachedRigidbody.velocity;
+        //Vector3 playerVelocity = characterController.velocity;
+        //Vector3 relativeVelocity = -vehicleVelocity + playerVelocity + Vector3.up * verticalForceMulti;
+
+        //Vector3 hitForce = relativeVelocity * collisionForceMulti;
+        Vector3 hitForce = collisionForceMulti * verticalForceMulti * Vector3.up;
 
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
