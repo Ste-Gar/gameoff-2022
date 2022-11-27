@@ -27,6 +27,61 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -2.4567943
       objectReference: {fileID: 0}
+    - target: {fileID: 6786669578325760020, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786669578325760020, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786669578325760020, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.0625
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786669578325760020, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.067
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786669578325760020, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.957
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526057449950470117, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.078669
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526057449950470117, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.291185
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526057449950470117, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.93726885
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526057449950470117, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526057449950470117, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.159941
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526057449950470117, guid: c7274a2fff8548e4c943df85c5e72bd9,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.1438701
+      objectReference: {fileID: 0}
     - target: {fileID: 8981579105276544309, guid: c7274a2fff8548e4c943df85c5e72bd9,
         type: 3}
       propertyPath: m_Name

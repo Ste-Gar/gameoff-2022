@@ -79,7 +79,7 @@ public class RagdollMovement : MonoBehaviour
         if (groundImpactTimer < groundImpactInterval) return;
 
         groundImpactTimer = 0;
-        float velocityMultiplier = groundImpactVelocityMulti * Time.deltaTime;
+        //float velocityMultiplier = groundImpactVelocityMulti * Time.deltaTime;
         
         foreach (Rigidbody rb in ragdollRigidbodies)
         {

@@ -58,7 +58,7 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateMultiplier(object sender, Collider vehicle)
     {
-        currentMultiplier += vehicle.gameObject.GetComponent<VehicleScore>().ScoreMultiplier;
+        currentMultiplier += vehicle.gameObject.GetComponentInParent<VehicleScore>().ScoreMultiplier;
         multiplierText.text = $"x{currentMultiplier}";
     }
 
