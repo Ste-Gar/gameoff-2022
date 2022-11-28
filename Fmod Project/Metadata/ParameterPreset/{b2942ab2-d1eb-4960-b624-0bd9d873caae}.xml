@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
+<<<<<<<< HEAD:Fmod Project/Metadata/ParameterPreset/{b2942ab2-d1eb-4960-b624-0bd9d873caae}.xml
 	<object class="ParameterPreset" id="{b2942ab2-d1eb-4960-b624-0bd9d873caae}">
 		<property name="name">
 			<value>Time</value>
+========
+	<object class="ParameterPreset" id="{928949cf-a5e8-4ab1-9f01-cc8cd764854e}">
+		<property name="name">
+			<value>Flight</value>
+>>>>>>>> da7e87daf2fea514dd0ac5aceeb1cb263f8ebbec:Fmod Project/Metadata/ParameterPreset/{928949cf-a5e8-4ab1-9f01-cc8cd764854e}.xml
 		</property>
 		<relationship name="folder">
 			<destination>{a9ec830b-0eff-43e9-8d7e-889ad6822fc0}</destination>
 		</relationship>
 		<relationship name="parameter">
+<<<<<<<< HEAD:Fmod Project/Metadata/ParameterPreset/{b2942ab2-d1eb-4960-b624-0bd9d873caae}.xml
 			<destination>{e5f2bc77-30bb-43c8-a26e-2f1651d2e01a}</destination>
 		</relationship>
 	</object>
 	<object class="GameParameter" id="{e5f2bc77-30bb-43c8-a26e-2f1651d2e01a}">
+========
+			<destination>{2dab34e9-d81d-406b-98a6-8c4808474b50}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{2dab34e9-d81d-406b-98a6-8c4808474b50}">
+>>>>>>>> da7e87daf2fea514dd0ac5aceeb1cb263f8ebbec:Fmod Project/Metadata/ParameterPreset/{928949cf-a5e8-4ab1-9f01-cc8cd764854e}.xml
 		<property name="parameterType">
 			<value>1</value>
 		</property>
 		<property name="maximum">
+<<<<<<<< HEAD:Fmod Project/Metadata/ParameterPreset/{b2942ab2-d1eb-4960-b624-0bd9d873caae}.xml
 			<value>3</value>
+========
+			<value>2</value>
+		</property>
+		<property name="isGlobal">
+			<value>true</value>
+>>>>>>>> da7e87daf2fea514dd0ac5aceeb1cb263f8ebbec:Fmod Project/Metadata/ParameterPreset/{928949cf-a5e8-4ab1-9f01-cc8cd764854e}.xml
 		</property>
 		<property name="initialValue">
 			<value>0</value>
