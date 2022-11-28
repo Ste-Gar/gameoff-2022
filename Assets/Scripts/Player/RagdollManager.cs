@@ -147,6 +147,7 @@ public class RagdollManager : MonoBehaviour
         animator.enabled = false;
 
         state = RagdollState.enabled;
+        if (GameManager.gameState != GameManager.GameState.Playing) return;
         OnRagdollEnable?.Invoke(this, EventArgs.Empty);
     }
 
@@ -292,7 +293,7 @@ public class RagdollManager : MonoBehaviour
         {
             rb.isKinematic = true;
         }
-
+        if (GameManager.gameState != GameManager.GameState.Playing) return;
         OnRagdollDisable?.Invoke(this, EventArgs.Empty);
     }
 
