@@ -11,9 +11,6 @@ public class VehicleSound : MonoBehaviour
     bool m_HitDetect;
     RaycastHit m_Hit;
     Collider m_Collider;
-    Transform player;
-
-    private float distance;
 
     private FMOD.Studio.EventInstance instance;
 
@@ -23,9 +20,6 @@ public class VehicleSound : MonoBehaviour
 
     private void Awake()
     {
-        var target = GameObject.Find("Player");
-        player = target.GetComponent<Transform>();
-
         m_Collider = GetComponentInChildren<Collider>();
     }
 
@@ -38,51 +32,20 @@ public class VehicleSound : MonoBehaviour
     {
         hornTimer += Time.fixedDeltaTime;
         if (hornTimer < hornInterval) return;
-        
-        distance = Vector3.Distance(transform.position, player.transform.position);
 
         m_HitDetect = Physics.BoxCast(m_Collider.bounds.center, transform.localScale, transform.forward, out m_Hit, transform.rotation, m_MaxDistance);
 
-        if (m_Hit.transform == player)
+        if (m_Hit.collider == null) return;
+        if (m_Hit.collider.CompareTag("Player"))
         {
 
+            instance = FMODUnity.RuntimeManager.CreateInstance("event:/Horn");
+            instance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+            instance.start();
 
-            if (distance < 20)
-            {
+            hornTimer = 0;
 
-                instance = FMODUnity.RuntimeManager.CreateInstance("event:/Horn");
-                instance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-                instance.start();
-
-                hornTimer = 0;
-
-            }
-
-            //Debug.Log("Hit : " + m_Hit.collider.name + " " + distance + " " + i);
-        }
-
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-
-        //Check if there has been a hit yet
-        if (m_HitDetect)
-        {
-            //Draw a Ray forward from GameObject toward the hit
-            Gizmos.DrawRay(transform.position, transform.forward * m_Hit.distance);
-            //Draw a cube that extends to where the hit exists
-            Gizmos.DrawWireCube(transform.position + transform.forward * m_Hit.distance, transform.localScale);
-        }
-        //If there hasn't been a hit yet, draw the ray at the maximum distance
-        else
-        {
-            //Draw a Ray forward from GameObject toward the maximum distance
-            Gizmos.DrawRay(transform.position, transform.forward * m_MaxDistance);
-            //Draw a cube at the maximum distance
-            Gizmos.DrawWireCube(transform.position + transform.forward * m_MaxDistance, transform.localScale);
+            // Debug.Log("Hit : " + m_Hit.collider.name + " " + distance);
         }
     }
-
 }

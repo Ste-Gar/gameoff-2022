@@ -10,7 +10,9 @@ public class Timer : MonoBehaviour
 
     [SerializeField] Image timerImage;
     [SerializeField] float gameDuration = 180f;
-    float elapsedTime;
+    public float GameDuration { get { return gameDuration; } }
+    private float elapsedTime;
+    public float ElapsedTime { get { return elapsedTime; } }
 
     ScoreManager scoreManager;
 
