@@ -471,21 +471,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Meet Sal Greatguy, yadda yadda I need to add some intro here or something
-    halp me pls ktnx
-
-    We could also totally add a logo if we have time.
+  m_text: 'Meet Sal Greatguy, a lawyer always looking for a quick buck. And what
+    better way to do that, than to cut the middleman?
 
 
-    Throw
-    yourself at vehicles for that sweet, sweet insurance money. Hit <color=red>Ambulances</color>
-    for bonus points!
+    Throw yourself at vehicles
+    for that sweet, sweet insurance money. Hit <color=red>Ambulances</color> for
+    bonus points!
 
 
     <color=red>WASD / Arrows</color> - movement
 
-    <color=red>Spacebar</color>
-    - jump'
+    <color=red>Mouse</color>
+    - look around
+
+    <color=red>Spacebar</color> - jump'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 23d54a0b79fd0d2429ade8ff31921810, type: 2}
@@ -518,7 +518,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 32
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
