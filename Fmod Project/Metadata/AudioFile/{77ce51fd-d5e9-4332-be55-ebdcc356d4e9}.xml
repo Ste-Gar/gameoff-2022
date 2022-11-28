@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{44f8acef-0098-4a3b-8075-c66270555f1a}">
+	<object class="AudioFile" id="{77ce51fd-d5e9-4332-be55-ebdcc356d4e9}">
 		<property name="assetPath">
-			<value>ScoreScreen.mp3</value>
+			<value>10.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
@@ -11,7 +14,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>6.7918367346938773</value>
+			<value>130.74285714285713</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{c16e8e33-a3fb-4ec8-a28a-df712e26743e}</destination>
