@@ -2,11 +2,7 @@ using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-
 
 public class BackgroundMusic : MonoBehaviour
 {
@@ -15,16 +11,12 @@ public class BackgroundMusic : MonoBehaviour
     FMOD.Studio.EventInstance music;
     FMOD.Studio.EventInstance money;
     FMOD.Studio.EventInstance ambience;
-    Transform planeTransform;
     bool comboMusic;
 
     private void Awake()
     {
         timerScript = FindObjectOfType<Timer>();
         playerRagdoll = FindObjectOfType<RagdollManager>();
-
-        var target2 = GameObject.Find("Plane");
-        planeTransform = target2.transform;
 
         playerRagdoll.OnRagdollEnable += EnableComboMusic;
         playerRagdoll.OnRagdollDisable += DisableComboMusic;
@@ -48,7 +40,7 @@ public class BackgroundMusic : MonoBehaviour
     }
     private void Update()
     {
-        if (timerScript.elapsedTime > (timerScript.gameDuration * 0.75 ))
+        if (timerScript.ElapsedTime > (timerScript.GameDuration * 0.75 ))
             music.setParameterByName("Time", 1);
         if (comboMusic)
             PlaneDistance();
@@ -56,7 +48,7 @@ public class BackgroundMusic : MonoBehaviour
     private void EnableComboMusic(object sender, EventArgs e)
     {
         comboMusic = true;
-        if (timerScript.elapsedTime < timerScript.gameDuration)
+        if (timerScript.ElapsedTime < timerScript.GameDuration)
         {
         money.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Flight", 1);
@@ -90,11 +82,8 @@ public class BackgroundMusic : MonoBehaviour
     }
     private void PlaneDistance  ()
     {
-        float distance;
-        distance = Camera.main.transform.position.y - planeTransform.transform.position.y;
+        float distance = Camera.main.transform.position.y;
         ambience.setParameterByName("Distance", distance);
-        Debug.Log(distance);
-
     }
 }
 

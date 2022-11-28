@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1026ffa953abe4995767b371af323b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxDistance: 50
+  m_MaxDistance: 20
   hornInterval: 10
 --- !u!54 &8981579105276544310
 Rigidbody:
