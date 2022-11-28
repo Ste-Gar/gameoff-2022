@@ -48,6 +48,7 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   multiplierText: {fileID: 0}
   totalText: {fileID: 0}
+  finalScoreText: {fileID: 0}
 --- !u!114 &5631486271975064936
 MonoBehaviour:
   m_ObjectHideFlags: 0
