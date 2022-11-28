@@ -5,22 +5,27 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 
 public class BackgroundMusic : MonoBehaviour
 {
-    // private StudioEventEmitter m_music;
+    private Timer timerScript;
     private RagdollManager playerRagdoll;
     FMOD.Studio.EventInstance music;
     FMOD.Studio.EventInstance money;
-   private Timer timerScript;
-
+    FMOD.Studio.EventInstance ambience;
+    Transform planeTransform;
+    bool comboMusic;
 
     private void Awake()
     {
-
-        playerRagdoll = FindObjectOfType<RagdollManager>();
         timerScript = FindObjectOfType<Timer>();
+        playerRagdoll = FindObjectOfType<RagdollManager>();
+
+        var target2 = GameObject.Find("Plane");
+        planeTransform = target2.transform;
+
         playerRagdoll.OnRagdollEnable += EnableComboMusic;
         playerRagdoll.OnRagdollDisable += DisableComboMusic;
         timerScript.OnTimeOut += ScoreMusic;
@@ -37,23 +42,32 @@ public class BackgroundMusic : MonoBehaviour
     {
         music = FMODUnity.RuntimeManager.CreateInstance("event:/Music");
         money = FMODUnity.RuntimeManager.CreateInstance("event:/Money");
+        ambience = FMODUnity.RuntimeManager.CreateInstance("event:/Ambience");
         music.start();
+        ambience.start();
     }
     private void Update()
     {
         if (timerScript.elapsedTime > (timerScript.gameDuration * 0.75 ))
             music.setParameterByName("Time", 1);
+        if (comboMusic)
+            PlaneDistance();
     }
     private void EnableComboMusic(object sender, EventArgs e)
     {
+        comboMusic = true;
+        if (timerScript.elapsedTime < timerScript.gameDuration)
+        {
         money.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Flight", 1);
         money.start();
         money.setParameterByName("Money End", 0);
+        }
     }
 
     private void DisableComboMusic(object sender, EventArgs e)
     {
+        comboMusic=false;
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Flight", 0);
         money.setParameterByName("Money End", 1);
 
@@ -64,15 +78,23 @@ public class BackgroundMusic : MonoBehaviour
     }
     public void ResetMusic()
     {
-
+        ambience.setParameterByName("Distance", 0);
         music.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-
         music.setParameterByName("Time", 0);
         music.start();
     }
     private void ScoreMusic(object sender, EventArgs e)
     {
-
         music.setParameterByName("Time", 2);
+        ambience.setParameterByName("Distance", 15);
+    }
+    private void PlaneDistance  ()
+    {
+        float distance;
+        distance = Camera.main.transform.position.y - planeTransform.transform.position.y;
+        ambience.setParameterByName("Distance", distance);
+        Debug.Log(distance);
+
     }
 }
+
