@@ -14,7 +14,7 @@ public class VehicleSound : MonoBehaviour
 
     private FMOD.Studio.EventInstance instance;
 
-    [SerializeField] float hornInterval = 10f;
+    [SerializeField] float hornInterval = 5f;
     private float hornTimer;
 
 
