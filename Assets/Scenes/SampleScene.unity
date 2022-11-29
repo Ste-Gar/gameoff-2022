@@ -1968,6 +1968,11 @@ PrefabInstance:
       propertyPath: timerImage
       value: 
       objectReference: {fileID: 48305507}
+    - target: {fileID: 3272142963843653767, guid: 101cfe97f68bf674d984d002e08ebd00,
+        type: 3}
+      propertyPath: gameDuration
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 101cfe97f68bf674d984d002e08ebd00, type: 3}
 --- !u!1001 &3336838104372655914
