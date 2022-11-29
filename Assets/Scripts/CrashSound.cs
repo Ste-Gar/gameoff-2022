@@ -15,10 +15,11 @@ public class CrashSound : MonoBehaviour
     {
         playerRagdoll = FindObjectOfType<RagdollManager>();
         playerRagdoll.OnRagdollThrow += Crash;
-        crash = FMODUnity.RuntimeManager.CreateInstance("event:/Crash");
     }
     private void Start()
     {
+        crash = FMODUnity.RuntimeManager.CreateInstance("event:/Crash");
+        crash.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         crashTimer = crashInterval;
     }
     private void FixedUpdate()
