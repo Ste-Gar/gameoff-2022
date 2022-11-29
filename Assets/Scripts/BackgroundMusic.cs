@@ -72,8 +72,7 @@ public class BackgroundMusic : MonoBehaviour
     {
         ambience.setParameterByName("Distance", 0);
         music.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        music.setParameterByName("Time", 0);
-        music.start();
+        StartCoroutine(Wait());
     }
     private void ScoreMusic(object sender, EventArgs e)
     {
@@ -84,6 +83,13 @@ public class BackgroundMusic : MonoBehaviour
     {
         float distance = Camera.main.transform.position.y;
         ambience.setParameterByName("Distance", distance);
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1);
+        music.setParameterByName("Time", 0);
+        music.start();
     }
 }
 
