@@ -21,11 +21,14 @@ public class GameManager : MonoBehaviour
 
     private float cameraBlendDuration;
 
+    private bool isPaused;
+
     PlayerMovement playerMovement;
 
     private Timer timer;
     [SerializeField] GameObject gameUI;
     [SerializeField] GameObject gameOverUI;
+    [SerializeField] GameObject pauseUI;
 
     private void Awake()
     {
@@ -43,6 +46,21 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(StartGameDelay());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && gameState == GameState.Playing)
+        {
+            if (isPaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
     }
 
     private IEnumerator StartGameDelay()
@@ -65,5 +83,26 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.Playing;
         OnGameReset?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0;
+        isPaused = true;
+        Cursor.lockState = CursorLockMode.None;
+        pauseUI.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        isPaused = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        pauseUI.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
