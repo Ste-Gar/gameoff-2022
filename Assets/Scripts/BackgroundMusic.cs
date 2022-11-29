@@ -72,7 +72,7 @@ public class BackgroundMusic : MonoBehaviour
     {
         ambience.setParameterByName("Distance", 0);
         music.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        StartCoroutine(wait());
+        StartCoroutine(Wait());
     }
     private void ScoreMusic(object sender, EventArgs e)
     {
@@ -85,7 +85,7 @@ public class BackgroundMusic : MonoBehaviour
         ambience.setParameterByName("Distance", distance);
     }
 
-    IEnumerator wait()
+    IEnumerator Wait()
     {
         yield return new WaitForSeconds(1);
         music.setParameterByName("Time", 0);
