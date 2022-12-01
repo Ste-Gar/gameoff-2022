@@ -471,22 +471,22 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Meet Sal Greatguy, a lawyer always looking to make a quick buck. And what
-    better way to do that, than to cut the middleman?
+  m_text: 'Meet Sal Greatguy, a down-on-his-luck lawyer always looking to make a
+    quick buck - and with today''s reckless drivers, damage claims have never been
+    this easy.
 
 
-    Throw yourself at vehicles
-    for that sweet, sweet insurance money. Hit <color=red>Ambulances</color> for
-    bonus points, and make as much as you can in two minutes!
+    Throw yourself at vehicles for that sweet, sweet personal injury
+    money. Hit <color=red>Ambulances</color> for bonus points, and make as much bank
+    as you can in two minutes!
 
 
-    <color=red>WASD
-    / Arrows</color> - movement
+    <color=red>WASD / Arrows</color> - movement
 
-    <color=red>Mouse</color> - look around
+    <color=red>Mouse</color>
+    - look around
 
-    <color=red>Spacebar</color>
-    - jump'
+    <color=red>Spacebar</color> - jump'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 23d54a0b79fd0d2429ade8ff31921810, type: 2}
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -304.86447, y: -136.35486, z: -323.1151, w: -217.6931}
+  m_margin: {x: -304.86447, y: -136.35486, z: -323.1151, w: -270.35226}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2430,7 +2430,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 157}
+  m_AnchoredPosition: {x: 0, y: 92}
   m_SizeDelta: {x: 271.13892, y: 78.792786}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7353731250936164568
