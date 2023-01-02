@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ToonLit Material
+  m_Name: BotwToon Material
   m_Shader: {fileID: -6465566751694194690, guid: 25acd9208553b4b41abc5059ef94ad17,
     type: 3}
   m_ValidKeywords: []
