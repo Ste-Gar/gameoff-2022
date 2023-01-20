@@ -79,6 +79,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Additional_Light_Highlight: 0.5
+    - _Additional_Light_Threshold: 0.5
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
